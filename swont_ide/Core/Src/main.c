@@ -28,9 +28,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdbool.h"
-#include "Logic_layer.h"
-#include "VGA_io_driver.h"
-#include "API_draw.h"
+#include "logic_layer.h"
+#include "vga_io_driver.h"
+#include "api_draw.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
