@@ -1,0 +1,229 @@
+\doxysection{ub\+\_\+lib/logic\+\_\+layer.h File Reference}
+\hypertarget{logic__layer_8h}{}\label{logic__layer_8h}\index{ub\_lib/logic\_layer.h@{ub\_lib/logic\_layer.h}}
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}log.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structinput__vars}{input\+\_\+vars}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{logic__layer_8h_a5c707deff4e68c7283f2ed73665e0c77}{MAX\+\_\+\+VARS}}~10
+\item 
+\#define \mbox{\hyperlink{logic__layer_8h_a0e3eff829ed19518d75bb7d21a0ca3f6}{BYTE\+\_\+\+BUFLEN}}~1
+\item 
+\#define \mbox{\hyperlink{logic__layer_8h_ad1cc016cd2d60fbb1dd56e7e09ecc00c}{LINE\+\_\+\+BUFLEN}}~1024
+\item 
+\#define \mbox{\hyperlink{logic__layer_8h_a3b81478c7058ceb6ed610ce8e2ca3822}{CARRIAGE\+\_\+\+RETURN}}~13 /\texorpdfstring{$\ast$}{*} carriage return char \textbackslash{}r \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{logic__layer_8h_a3c2cad5489953de23c5733e6e696a93e}{LINE\+\_\+\+FEED}}~10 /\texorpdfstring{$\ast$}{*} linefeed char \textbackslash{}n     \texorpdfstring{$\ast$}{*}/
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352}{Command\+Type}} \{ \newline
+\mbox{\hyperlink{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352abb221177213477f4650b63a6d506b291}{CMD\+\_\+\+LINE}}
+, \mbox{\hyperlink{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a0e4ea895ef8ba201c2955c603a91ccd9}{CMD\+\_\+\+RECTANGLE}}
+, \mbox{\hyperlink{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a11a307af79dda81e81c39cf4d7bf5222}{CMD\+\_\+\+TEXT}}
+, \mbox{\hyperlink{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a7ab01da2eb2fda1de65390974bfa56a6}{CMD\+\_\+\+BITMAP}}
+, \newline
+\mbox{\hyperlink{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a7d6852f44865db912df44bf6bdb3540c}{CMD\+\_\+\+CLEAR\+\_\+\+SCREEN}}
+, \mbox{\hyperlink{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352af6e5421b6e2b96487de7e0a6ab529007}{CMD\+\_\+\+DEBUG}}
+, \mbox{\hyperlink{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a59c51f88aeda3ea6351f01c9c70b9ac7}{CMD\+\_\+\+UNKNOWN}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeratie van beschikbare commando types. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} \{ \newline
+\mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83aa290b9316712aac3e143a493b654029b}{VGA\+\_\+\+COLOUR\+\_\+\+BLACK}} = 0x00
+, \mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a4f3f17724b8b273fce8e3a89fddcecd4}{VGA\+\_\+\+COLOUR\+\_\+\+BLUE}} = 0x03
+, \mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83af7a341c9b4430ad390cc7c30c6094428}{VGA\+\_\+\+COLOUR\+\_\+\+GREEN}} = 0x1C
+, \mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a7c71de16ae72f57462ad8d68f821c5fd}{VGA\+\_\+\+COLOUR\+\_\+\+RED}} = 0x\+E0
+, \newline
+\mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a97e3fec37b168fe2bcaa412fa7a7c540}{VGA\+\_\+\+COLOUR\+\_\+\+WHITE}} = 0x\+FF
+, \mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83aaae2a6e8180f8b90b6fdedc7d198cb28}{VGA\+\_\+\+COLOUR\+\_\+\+CYAN}} = 0x1F
+, \mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a01ca6621308a3e731d724c6a8009a17f}{VGA\+\_\+\+COLOUR\+\_\+\+MAGENTA}} = 0x\+E3
+, \mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a60e5d32a80145a35880f661c7f83a73e}{VGA\+\_\+\+COLOUR\+\_\+\+YELLOW}} = 0x\+FC
+, \newline
+\mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a754677d3d46d29afae5a10dd034bceef}{CMD\+\_\+\+UNKNOWN\+\_\+\+COLOR}} = -\/1
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{logic__layer_8h_a85531abb1c0e2d75c3950cf4031c6e0c}{LL\+\_\+\+Receive}} (void)
+\begin{DoxyCompactList}\small\item\em Separates strings from incoming array to parsed data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logic__layer_8h_ade7512a586e4a947429a3a86960a6b06}{LL\+\_\+\+Execute}} (void)
+\begin{DoxyCompactList}\small\item\em Voert een commando uit op basis van de opgegeven parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structinput__vars}{input\+\_\+vars}} \mbox{\hyperlink{logic__layer_8h_a69d1847b7c51da72a1f5bc9b639d0d5d}{Input}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{logic__layer_8h_a0e3eff829ed19518d75bb7d21a0ca3f6}\label{logic__layer_8h_a0e3eff829ed19518d75bb7d21a0ca3f6} 
+\index{logic\_layer.h@{logic\_layer.h}!BYTE\_BUFLEN@{BYTE\_BUFLEN}}
+\index{BYTE\_BUFLEN@{BYTE\_BUFLEN}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{BYTE\_BUFLEN}{BYTE\_BUFLEN}}
+{\footnotesize\ttfamily \#define BYTE\+\_\+\+BUFLEN~1}
+
+\Hypertarget{logic__layer_8h_a3b81478c7058ceb6ed610ce8e2ca3822}\label{logic__layer_8h_a3b81478c7058ceb6ed610ce8e2ca3822} 
+\index{logic\_layer.h@{logic\_layer.h}!CARRIAGE\_RETURN@{CARRIAGE\_RETURN}}
+\index{CARRIAGE\_RETURN@{CARRIAGE\_RETURN}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{CARRIAGE\_RETURN}{CARRIAGE\_RETURN}}
+{\footnotesize\ttfamily \#define CARRIAGE\+\_\+\+RETURN~13 /\texorpdfstring{$\ast$}{*} carriage return char \textbackslash{}r \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{logic__layer_8h_ad1cc016cd2d60fbb1dd56e7e09ecc00c}\label{logic__layer_8h_ad1cc016cd2d60fbb1dd56e7e09ecc00c} 
+\index{logic\_layer.h@{logic\_layer.h}!LINE\_BUFLEN@{LINE\_BUFLEN}}
+\index{LINE\_BUFLEN@{LINE\_BUFLEN}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{LINE\_BUFLEN}{LINE\_BUFLEN}}
+{\footnotesize\ttfamily \#define LINE\+\_\+\+BUFLEN~1024}
+
+\Hypertarget{logic__layer_8h_a3c2cad5489953de23c5733e6e696a93e}\label{logic__layer_8h_a3c2cad5489953de23c5733e6e696a93e} 
+\index{logic\_layer.h@{logic\_layer.h}!LINE\_FEED@{LINE\_FEED}}
+\index{LINE\_FEED@{LINE\_FEED}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{LINE\_FEED}{LINE\_FEED}}
+{\footnotesize\ttfamily \#define LINE\+\_\+\+FEED~10 /\texorpdfstring{$\ast$}{*} linefeed char \textbackslash{}n     \texorpdfstring{$\ast$}{*}/}
+
+\Hypertarget{logic__layer_8h_a5c707deff4e68c7283f2ed73665e0c77}\label{logic__layer_8h_a5c707deff4e68c7283f2ed73665e0c77} 
+\index{logic\_layer.h@{logic\_layer.h}!MAX\_VARS@{MAX\_VARS}}
+\index{MAX\_VARS@{MAX\_VARS}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_VARS}{MAX\_VARS}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+VARS~10}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83} 
+\index{logic\_layer.h@{logic\_layer.h}!ColorType@{ColorType}}
+\index{ColorType@{ColorType}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{ColorType}{ColorType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_COLOUR\_BLACK@{VGA\_COLOUR\_BLACK}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!VGA\_COLOUR\_BLACK@{VGA\_COLOUR\_BLACK}}}\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83aa290b9316712aac3e143a493b654029b}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83aa290b9316712aac3e143a493b654029b} 
+VGA\+\_\+\+COLOUR\+\_\+\+BLACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_COLOUR\_BLUE@{VGA\_COLOUR\_BLUE}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!VGA\_COLOUR\_BLUE@{VGA\_COLOUR\_BLUE}}}\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a4f3f17724b8b273fce8e3a89fddcecd4}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a4f3f17724b8b273fce8e3a89fddcecd4} 
+VGA\+\_\+\+COLOUR\+\_\+\+BLUE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_COLOUR\_GREEN@{VGA\_COLOUR\_GREEN}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!VGA\_COLOUR\_GREEN@{VGA\_COLOUR\_GREEN}}}\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83af7a341c9b4430ad390cc7c30c6094428}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83af7a341c9b4430ad390cc7c30c6094428} 
+VGA\+\_\+\+COLOUR\+\_\+\+GREEN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_COLOUR\_RED@{VGA\_COLOUR\_RED}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!VGA\_COLOUR\_RED@{VGA\_COLOUR\_RED}}}\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a7c71de16ae72f57462ad8d68f821c5fd}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a7c71de16ae72f57462ad8d68f821c5fd} 
+VGA\+\_\+\+COLOUR\+\_\+\+RED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_COLOUR\_WHITE@{VGA\_COLOUR\_WHITE}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!VGA\_COLOUR\_WHITE@{VGA\_COLOUR\_WHITE}}}\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a97e3fec37b168fe2bcaa412fa7a7c540}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a97e3fec37b168fe2bcaa412fa7a7c540} 
+VGA\+\_\+\+COLOUR\+\_\+\+WHITE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_COLOUR\_CYAN@{VGA\_COLOUR\_CYAN}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!VGA\_COLOUR\_CYAN@{VGA\_COLOUR\_CYAN}}}\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83aaae2a6e8180f8b90b6fdedc7d198cb28}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83aaae2a6e8180f8b90b6fdedc7d198cb28} 
+VGA\+\_\+\+COLOUR\+\_\+\+CYAN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_COLOUR\_MAGENTA@{VGA\_COLOUR\_MAGENTA}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!VGA\_COLOUR\_MAGENTA@{VGA\_COLOUR\_MAGENTA}}}\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a01ca6621308a3e731d724c6a8009a17f}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a01ca6621308a3e731d724c6a8009a17f} 
+VGA\+\_\+\+COLOUR\+\_\+\+MAGENTA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VGA\_COLOUR\_YELLOW@{VGA\_COLOUR\_YELLOW}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!VGA\_COLOUR\_YELLOW@{VGA\_COLOUR\_YELLOW}}}\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a60e5d32a80145a35880f661c7f83a73e}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a60e5d32a80145a35880f661c7f83a73e} 
+VGA\+\_\+\+COLOUR\+\_\+\+YELLOW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_UNKNOWN\_COLOR@{CMD\_UNKNOWN\_COLOR}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!CMD\_UNKNOWN\_COLOR@{CMD\_UNKNOWN\_COLOR}}}\Hypertarget{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a754677d3d46d29afae5a10dd034bceef}\label{logic__layer_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83a754677d3d46d29afae5a10dd034bceef} 
+CMD\+\_\+\+UNKNOWN\+\_\+\+COLOR&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352}\label{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352} 
+\index{logic\_layer.h@{logic\_layer.h}!CommandType@{CommandType}}
+\index{CommandType@{CommandType}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{CommandType}{CommandType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352}{Command\+Type}}}
+
+
+
+Enumeratie van beschikbare commando types. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_LINE@{CMD\_LINE}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!CMD\_LINE@{CMD\_LINE}}}\Hypertarget{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352abb221177213477f4650b63a6d506b291}\label{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352abb221177213477f4650b63a6d506b291} 
+CMD\+\_\+\+LINE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_RECTANGLE@{CMD\_RECTANGLE}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!CMD\_RECTANGLE@{CMD\_RECTANGLE}}}\Hypertarget{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a0e4ea895ef8ba201c2955c603a91ccd9}\label{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a0e4ea895ef8ba201c2955c603a91ccd9} 
+CMD\+\_\+\+RECTANGLE&Commando om een lijn te tekenen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_TEXT@{CMD\_TEXT}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!CMD\_TEXT@{CMD\_TEXT}}}\Hypertarget{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a11a307af79dda81e81c39cf4d7bf5222}\label{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a11a307af79dda81e81c39cf4d7bf5222} 
+CMD\+\_\+\+TEXT&Commando om een rechthoek te tekenen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_BITMAP@{CMD\_BITMAP}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!CMD\_BITMAP@{CMD\_BITMAP}}}\Hypertarget{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a7ab01da2eb2fda1de65390974bfa56a6}\label{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a7ab01da2eb2fda1de65390974bfa56a6} 
+CMD\+\_\+\+BITMAP&Commando om tekst te tekenen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_CLEAR\_SCREEN@{CMD\_CLEAR\_SCREEN}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!CMD\_CLEAR\_SCREEN@{CMD\_CLEAR\_SCREEN}}}\Hypertarget{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a7d6852f44865db912df44bf6bdb3540c}\label{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a7d6852f44865db912df44bf6bdb3540c} 
+CMD\+\_\+\+CLEAR\+\_\+\+SCREEN&Commando om een bitmap te tonen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_DEBUG@{CMD\_DEBUG}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!CMD\_DEBUG@{CMD\_DEBUG}}}\Hypertarget{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352af6e5421b6e2b96487de7e0a6ab529007}\label{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352af6e5421b6e2b96487de7e0a6ab529007} 
+CMD\+\_\+\+DEBUG&Commando om het scherm te wissen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_UNKNOWN@{CMD\_UNKNOWN}!logic\_layer.h@{logic\_layer.h}}\index{logic\_layer.h@{logic\_layer.h}!CMD\_UNKNOWN@{CMD\_UNKNOWN}}}\Hypertarget{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a59c51f88aeda3ea6351f01c9c70b9ac7}\label{logic__layer_8h_a21e038f5b8958e203d28bc4f18472352a59c51f88aeda3ea6351f01c9c70b9ac7} 
+CMD\+\_\+\+UNKNOWN&Commando om het log level aan te passen. Onbekend commando. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{logic__layer_8h_ade7512a586e4a947429a3a86960a6b06}\label{logic__layer_8h_ade7512a586e4a947429a3a86960a6b06} 
+\index{logic\_layer.h@{logic\_layer.h}!LL\_Execute@{LL\_Execute}}
+\index{LL\_Execute@{LL\_Execute}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{LL\_Execute()}{LL\_Execute()}}
+{\footnotesize\ttfamily void LL\+\_\+\+Execute (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Voert een commando uit op basis van de opgegeven parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Parsed\+Data} & Array van strings met commando en parameters. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{logic__layer_8h_a85531abb1c0e2d75c3950cf4031c6e0c}\label{logic__layer_8h_a85531abb1c0e2d75c3950cf4031c6e0c} 
+\index{logic\_layer.h@{logic\_layer.h}!LL\_Receive@{LL\_Receive}}
+\index{LL\_Receive@{LL\_Receive}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{LL\_Receive()}{LL\_Receive()}}
+{\footnotesize\ttfamily void LL\+\_\+\+Receive (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Separates strings from incoming array to parsed data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input.\+line\+\_\+rx\+\_\+buffer} & used \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & currently \\
+\hline
+\end{DoxyRetVals}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{logic__layer_8h_a69d1847b7c51da72a1f5bc9b639d0d5d}\label{logic__layer_8h_a69d1847b7c51da72a1f5bc9b639d0d5d} 
+\index{logic\_layer.h@{logic\_layer.h}!Input@{Input}}
+\index{Input@{Input}!logic\_layer.h@{logic\_layer.h}}
+\doxysubsubsection{\texorpdfstring{Input}{Input}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structinput__vars}{input\+\_\+vars}} Input\hspace{0.3cm}{\ttfamily [extern]}}
+

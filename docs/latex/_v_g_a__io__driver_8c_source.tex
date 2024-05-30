@@ -1,0 +1,128 @@
+\doxysection{VGA\+\_\+io\+\_\+driver.\+c}
+\hypertarget{_v_g_a__io__driver_8c_source}{}\label{_v_g_a__io__driver_8c_source}\index{Core/ub\_lib/VGA\_io\_driver.c@{Core/ub\_lib/VGA\_io\_driver.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00002}00002\ \textcolor{comment}{//\ File\ \ \ \ \ :\ stm32\_ub\_vga\_320x240.c}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00003}00003\ \textcolor{comment}{//\ CPU\ \ \ \ \ \ :\ STM32F4}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00004}00004\ \textcolor{comment}{//\ IDE\ \ \ \ \ \ :\ CooCox\ CoIDE\ 1.7.0}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00005}00005\ \textcolor{comment}{//\ Module\ \ \ :\ GPIO,\ TIM,\ MISC,\ DMA}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00006}00006\ \textcolor{comment}{//\ Function\ :\ vgaData\_s\ out\ by\ GPIO\ (320x240\ Pixel,\ 8bit\ color)}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00007}00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00008}00008\ \textcolor{comment}{//\ signals\ \ :\ PB11\ \ \ \ \ \ =\ HSync-\/Signal}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00009}00009\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ PB12\ \ \ \ \ \ =\ VSync-\/Signal}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00010}00010\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ PE8+PE9\ \ \ =\ color\ Blue}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00011}00011\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ PE10-\/PE12\ =\ color\ Green}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00012}00012\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ PE13-\/PE15\ =\ color\ red}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00013}00013\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00014}00014\ \textcolor{comment}{//\ uses\ \ \ \ \ :\ TIM1,\ TIM2}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00015}00015\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ DMA2,\ Channel6,\ Stream5}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00016}00016\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00019}00019\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00020}00020\ \textcolor{comment}{//\ Includes}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00021}00021\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ "{}VGA\_io\_driver.h"{}}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00024}00024\ \textcolor{keyword}{extern}\ TIM\_HandleTypeDef\ htim1;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00025}00025\ \textcolor{keyword}{extern}\ TIM\_HandleTypeDef\ htim2;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00026}00026\ \textcolor{keyword}{extern}\ DMA\_HandleTypeDef\ hdma\_tim1\_up;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00028}\mbox{\hyperlink{struct_v_g_a__meta_data__s}{00028}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00029}00029\ \{}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00030}00030\ \ \ \ \ uint16\_t\ lineCounter;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Line\ counter}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00031}00031\ \ \ \ \ uint32\_t\ startAddressDMA;\ \ \ \ \ \textcolor{comment}{//\ Start\ Address\ for\ the\ DMA\ transfer}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00032}00032\ \ \ \ \ uint32\_t\ dmaConfigRegister;\ \ \ \textcolor{comment}{//\ Register\ constant\ CR-\/Register}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00033}00033\ \ \ \ \ uint8\_t\ videoRAM[(VGA\_DISPLAY\_X\ +\ 1)\ *\ VGA\_DISPLAY\_Y];}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00034}00034\ \}\ \mbox{\hyperlink{struct_v_g_a__meta_data__s}{VGA\_metaData\_s}};}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00036}00036\ \mbox{\hyperlink{struct_v_g_a__meta_data__s}{VGA\_metaData\_s}}\ vgaData\_s;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00038}00038\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00039}00039\ \textcolor{comment}{//\ Init\ vgaData\_s-\/Module}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00040}00040\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00041}00041\ \textcolor{keywordtype}{void}\ VGA\_Init(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00042}00042\ \{}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00043}00043\ \ \ \ \ vgaData\_s.lineCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00044}00044\ \ \ \ \ vgaData\_s.startAddressDMA\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00045}00045\ \ \ \ \ vgaData\_s.dmaConfigRegister\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00047}00047\ \ \ \ \ GPIOB-\/>BSRR\ =\ VGA\_VSYNC\_Pin;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//\ TIM2}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00050}00050\ \ \ \ \ HAL\_TIM\_Base\_Start(\&htim2);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00051}00051\ \ \ \ \ HAL\_TIM\_PWM\_Start(\&htim2,\ TIM\_CHANNEL\_4);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00052}00052\ \ \ \ \ HAL\_TIM\_PWM\_Start\_IT(\&htim2,\ TIM\_CHANNEL\_3);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00053}00053\ \ \ \ \ \textcolor{comment}{//\ TIM1}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00054}00054\ \ \ \ \ \_\_HAL\_TIM\_ENABLE\_DMA(\&htim1,\ TIM\_DMA\_UPDATE);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00055}00055\ \ \ \ \ \_\_HAL\_TIM\_ENABLE(\&htim1);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00056}00056\ \ \ \ \ HAL\_DMA\_Start\_IT(\&hdma\_tim1\_up,\ (uint32\_t)\&vgaData\_s.videoRAM[0],\ VGA\_GPIOE\_ODR\_ADDRESS,\ VGA\_DISPLAY\_X\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00058}00058\ \ \ \ \ HAL\_DMA\_Init(\&hdma\_tim1\_up);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00059}00059\ \ \ \ \ \_\_HAL\_DMA\_ENABLE\_IT(\&hdma\_tim1\_up,\ DMA\_IT\_TC);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ Register\ swap\ and\ safe}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00062}00062\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00063}00063\ \ \ \ \ \textcolor{comment}{//\ content\ of\ CR-\/Register\ read\ and\ save}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00064}00064\ \ \ \ \ vgaData\_s.dmaConfigRegister\ =\ DMA2\_Stream5-\/>CR;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00065}00065\ \ \ \ \ LOGI(\textcolor{stringliteral}{"{}VGA\ initialised"{}});}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00066}00066\ \}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00069}00069\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00070}00070\ \textcolor{comment}{//\ fill\ the\ DMA\ RAM\ buffer\ with\ one\ color}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00071}00071\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00074}00074\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00075}00075\ \textcolor{comment}{//\ put\ one\ Pixel\ on\ the\ screen\ with\ one\ color}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00076}00076\ \textcolor{comment}{//\ Important\ :\ the\ last\ Pixel+1\ from\ every\ line\ must\ be\ black\ (don't\ know\ why??)}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00077}00077\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00078}00078\ \textcolor{keywordtype}{void}\ VGA\_SetPixel(uint16\_t\ xp,\ uint16\_t\ yp,\ uint8\_t\ color)}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00079}00079\ \{}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{if}(xp\ >\ VGA\_DISPLAY\_X)}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ xp\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{if}(yp\ >\ VGA\_DISPLAY\_Y)}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ yp\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00085}00085\ \ \ \ \ \textcolor{comment}{//\ Write\ pixel\ to\ ram}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00086}00086\ \ \ \ \ vgaData\_s.videoRAM[(yp\ *\ (VGA\_DISPLAY\_X\ +\ 1))\ +\ xp]\ =\ color;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00087}00087\ \}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00089}00089\ \_\_inline\ \textcolor{keywordtype}{void}\ VGA\_InterruptHsync(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00090}00090\ \{}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00091}00091\ \ \ \ \ vgaData\_s.lineCounter++;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{if}(vgaData\_s.lineCounter\ >=\ VGA\_VSYNC\_PERIODE)}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00093}00093\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Address\ pointer\ first\ dot}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ vgaData\_s.lineCounter\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ vgaData\_s.startAddressDMA\ =\ (uint32\_t)(\&vgaData\_s.videoRAM[0]);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00099}00099\ \ \ \ \ \textcolor{comment}{//\ HSync-\/Pixel}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00100}00100\ \ \ \ \ GPIOB-\/>BSRR\ =\ (vgaData\_s.lineCounter\ <\ VGA\_VSYNC\_IMP)\ ?\ VGA\_VSYNC\_Pin<<16u\ :\ VGA\_VSYNC\_Pin;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00102}00102\ \ \ \ \ \textcolor{comment}{//\ Test\ for\ DMA\ start}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00103}00103\ \ \ \ \ \textcolor{keywordflow}{if}((vgaData\_s.lineCounter\ >=\ VGA\_VSYNC\_BILD\_START)\ \&\&\ (vgaData\_s.lineCounter\ <=\ VGA\_VSYNC\_BILD\_STOP))}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00104}00104\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Restart\ DMA\ transfer}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ DMA2\_Stream5-\/>CR\ =\ vgaData\_s.dmaConfigRegister;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00107}00107\ \ \ \ \ \ \ \ \ DMA2\_Stream5-\/>M0AR\ =\ vgaData\_s.startAddressDMA;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ TIM1-\/>CR1\ |=\ TIM\_CR1\_CEN;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ \_\_HAL\_DMA\_ENABLE(\&hdma\_tim1\_up);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Test\ Adrespointer\ for\ high}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(vgaData\_s.lineCounter\&0x01)}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ vgaData\_s.startAddressDMA\ +=\ (VGA\_DISPLAY\_X\ +\ 1);\ \textcolor{comment}{//\ inc\ after\ Hsync}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00113}00113\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00114}00114\ \}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00116}00116\ \_\_inline\ \textcolor{keywordtype}{void}\ VGA\_InterruptDma(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00117}00117\ \{}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00118}00118\ \ \ \ \ \textcolor{comment}{//\ Timer1\ stop}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00119}00119\ \ \ \ \ \_\_HAL\_TIM\_DISABLE(\&htim1);}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00120}00120\ \ \ \ \ \textcolor{comment}{//\ switch\ on\ black}}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00121}00121\ \ \ \ \ GPIOE-\/>BSRR\ =\ VGA\_GPIO\_HINIBBLE<<16u;}
+\DoxyCodeLine{\Hypertarget{_v_g_a__io__driver_8c_source_l00122}00122\ \}}
+
+\end{DoxyCode}

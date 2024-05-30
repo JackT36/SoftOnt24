@@ -5,5 +5,5 @@ var searchData=
   ['buffer_5fsize_5ftotal_2',['BUFFER_SIZE_TOTAL',['../log_8c.html#a5779573a359f6955255d59d39e68c52c',1,'log.c']]],
   ['busfault_5fhandler_3',['BusFault_Handler',['../stm32f4xx__it_8h.html#a850cefb17a977292ae5eb4cafa9976c3',1,'BusFault_Handler(void):&#160;stm32f4xx_it.c'],['../stm32f4xx__it_8c.html#a850cefb17a977292ae5eb4cafa9976c3',1,'BusFault_Handler(void):&#160;stm32f4xx_it.c']]],
   ['byte_5fbuffer_5frx_4',['byte_buffer_rx',['../structinput__vars.html#ae02efa54806ffef21353f15c0f246c47',1,'input_vars']]],
-  ['byte_5fbuflen_5',['BYTE_BUFLEN',['../_logic__layer_8h.html#a0e3eff829ed19518d75bb7d21a0ca3f6',1,'Logic_layer.h']]]
+  ['byte_5fbuflen_5',['BYTE_BUFLEN',['../logic__layer_8h.html#a0e3eff829ed19518d75bb7d21a0ca3f6',1,'logic_layer.h']]]
 ];

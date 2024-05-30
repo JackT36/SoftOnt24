@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['line_5fbuflen_0',['LINE_BUFLEN',['../_logic__layer_8h.html#ad1cc016cd2d60fbb1dd56e7e09ecc00c',1,'Logic_layer.h']]],
-  ['line_5ffeed_1',['LINE_FEED',['../_logic__layer_8h.html#a3c2cad5489953de23c5733e6e696a93e',1,'Logic_layer.h']]],
+  ['line_5fbuflen_0',['LINE_BUFLEN',['../logic__layer_8h.html#ad1cc016cd2d60fbb1dd56e7e09ecc00c',1,'logic_layer.h']]],
+  ['line_5ffeed_1',['LINE_FEED',['../logic__layer_8h.html#a3c2cad5489953de23c5733e6e696a93e',1,'logic_layer.h']]],
   ['log_5f_2',['LOG_',['../log_8h.html#aa6d702c9075fb86b1c83d693e223cdd0',1,'log.h']]],
   ['log_5fbold_3',['LOG_BOLD',['../log__config_8h.html#aa314f899fa2776405c83e9a94a8b9055',1,'log_config.h']]],
   ['log_5fbuffer_5fsize_4',['LOG_BUFFER_SIZE',['../log_8c.html#a381c342b2b34df0b1a5b39c0d94da4e1',1,'log.c']]],
