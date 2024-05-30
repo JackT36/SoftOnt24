@@ -106,7 +106,13 @@ int main(void)
     API_clearscreen(VGA_COLOUR_WHITE);
 
     API_draw_text(0, 0, VGA_COLOUR_BLACK, "TEST", "Joost", 15, 0, 0);
-    API_draw_bitmap(10, 10, 6);
+    API_draw_bitmap(5, 20, 0);
+    API_draw_bitmap(47, 20, 1);
+    API_draw_bitmap(89, 20, 2);
+    API_draw_bitmap(131, 20, 3);
+    API_draw_bitmap(173, 20, 4);
+    API_draw_bitmap(215, 20, 5);
+    API_draw_bitmap(257, 20, 6);
 
     HAL_GPIO_WritePin(Green_GPIO_Port, Green_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(Red_GPIO_Port, Red_Pin, GPIO_PIN_RESET);
