@@ -1,7 +1,7 @@
 //--------------------------------------------------------------
-// File     : stm32_ub_vga_320x240.c
+// File     : VGA_io_driver.c
 // CPU      : STM32F4
-// IDE      : CooCox CoIDE 1.7.0
+// IDE      : STM32CubeIDE 1.14.1
 // Module   : GPIO, TIM, MISC, DMA
 // Function : vgaData_s out by GPIO (320x240 Pixel, 8bit color)
 //
@@ -92,7 +92,7 @@ __inline void VGA_InterruptHsync(void)
     if(vgaData_s.lineCounter >= VGA_VSYNC_PERIODE)
     {
         // Address pointer first dot
-        vgaData_s.lineCounter = 0;
+        vgaData_s.lineCounter = 1;	//1 removes top right pixel shift at 320x240. Not ALL resolutions work like this!
         vgaData_s.startAddressDMA = (uint32_t)(&vgaData_s.videoRAM[0]);
     }
 
