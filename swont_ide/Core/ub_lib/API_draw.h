@@ -26,7 +26,7 @@ typedef struct
 {
     int width;
     int height;
-    int* bitmap; // Pointer to a 2D array stored as a 1D array
+    const int* bitmap; // Pointer to a 2D array stored as a 1D array
 } Bitmap_s;
 
 /******************************************************************************

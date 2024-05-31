@@ -112,6 +112,7 @@ int main(void)
     API_draw_bitmap(173, 20, 4);
     API_draw_bitmap(215, 20, 5);
     API_draw_bitmap(257, 20, 6);
+    API_draw_bitmap(20, 80, 7);
 
     HAL_GPIO_WritePin(Green_GPIO_Port, Green_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(Red_GPIO_Port, Red_Pin, GPIO_PIN_RESET);

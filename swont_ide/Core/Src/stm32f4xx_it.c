@@ -283,11 +283,11 @@ void USART2_IRQHandler(void)
 void DMA2_Stream5_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA2_Stream5_IRQn 0 */
-  VGA_InterruptDma();
+
   /* USER CODE END DMA2_Stream5_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_tim1_up);
   /* USER CODE BEGIN DMA2_Stream5_IRQn 1 */
-
+  VGA_InterruptDma();
   /* USER CODE END DMA2_Stream5_IRQn 1 */
 }
 
