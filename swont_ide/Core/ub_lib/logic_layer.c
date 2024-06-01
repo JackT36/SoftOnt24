@@ -72,21 +72,32 @@ ColorType GetColorType(const char* colorString)
     if(strncmp(colorString, "groen", strlen("groen")) == 0)
         return VGA_COLOUR_GREEN;
     if(strncmp(colorString, "bruin", strlen("bruin")) == 0)
-        return CMD_UNKNOWN_COLOR;
+        return VGA_COLOUR_BROWN;
     if(strncmp(colorString, "grijs", strlen("grijs")) == 0)
-        return CMD_UNKNOWN_COLOR;
+        return VGA_COLOUR_GREY;
     if(strncmp(colorString, "magenta", strlen("magenta")) == 0)
         return VGA_COLOUR_MAGENTA;
     if(strncmp(colorString, "lichtrood", strlen("lichtrood")) == 0)
-        return CMD_UNKNOWN_COLOR;
+        return VGA_COLOUR_LIGHT_RED;
     if(strncmp(colorString, "lichtblauw", strlen("lichtblauw")) == 0)
-        return CMD_UNKNOWN_COLOR;
+        return VGA_COLOUR_LIGHT_BLUE;
     if(strncmp(colorString, "lichtgroen", strlen("lichtgroen")) == 0)
-        return CMD_UNKNOWN_COLOR;
+        return VGA_COLOUR_LIGHT_GREEN;
     if(strncmp(colorString, "lichtcyaan", strlen("lichtcyaan")) == 0)
-        return CMD_UNKNOWN_COLOR;
+        return VGA_COLOUR_LIGHT_CYAN;
     if(strncmp(colorString, "lichtmagenta", strlen("lichtmagenta")) == 0)
-        return CMD_UNKNOWN_COLOR;
+        return VGA_COLOUR_LIGHT_MAGENTA;
+    //Extra colours
+    if(strncmp(colorString, "oranje", strlen("lichtmagenta")) == 0)
+            return VGA_COLOUR_ORANGE;
+    if(strncmp(colorString, "roze", strlen("lichtmagenta")) == 0)
+            return VGA_COLOUR_PINK;
+    if(strncmp(colorString, "paars", strlen("lichtmagenta")) == 0)
+            return VGA_COLOUR_PURPLE;
+    if(strncmp(colorString, "lichtoranje", strlen("lichtmagenta")) == 0)
+            return VGA_COLOUR_LIGHT_ORANGE;
+    if(strncmp(colorString, "lichtgeel", strlen("lichtmagenta")) == 0)
+            return VGA_COLOUR_LIGHT_YELLOW;
     return CMD_UNKNOWN_COLOR;
 }
 

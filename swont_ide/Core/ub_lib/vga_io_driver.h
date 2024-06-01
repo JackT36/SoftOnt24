@@ -1,5 +1,5 @@
 //--------------------------------------------------------------
-// File     : stm32_ub_vga_screen.h
+// File     : VGA_io_driver.h
 //--------------------------------------------------------------
 
 //--------------------------------------------------------------
@@ -43,10 +43,10 @@
 // Function  = Pixelclock (Speed for  DMA Transfer)
 //
 // basefreq = 2*APB2 (APB2=84MHz) => TIM_CLK=168MHz
-// Frq       = 168MHz/1/12 = 14MHz
+// Frq       = 168MHz/1/11 = 15.27MHz
 //
 //--------------------------------------------------------------
-#define VGA_TIM1_PERIODE      10        //almost centred
+#define VGA_TIM1_PERIODE      10        //10 almost centred
 #define VGA_TIM1_PRESCALE      0
 
 
