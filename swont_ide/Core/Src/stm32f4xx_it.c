@@ -24,8 +24,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stm32f407xx.h"
-#include "Logic_layer.h"
-#include "VGA_io_driver.h"
+#include "logic_layer.h"
+#include "vga_io_driver.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

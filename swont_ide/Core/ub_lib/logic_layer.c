@@ -1,7 +1,7 @@
 /******************************************************************************
  *   Includes                                                                  *
  ******************************************************************************/
-#include "logic_Layer.h"
+#include "logic_layer.h"
 #include "api_draw.h"
 #include <string.h>
 #include <stdlib.h>
@@ -52,6 +52,8 @@ CommandType GetCommandType(const char* command)
         return CMD_RECTANGLE;
     if(strncmp(command, "clearscherm", strlen("clearscherm")) == 0)
         return CMD_CLEAR_SCREEN;
+    if(strncmp(command, "figuur", strlen("figuur")) == 0)
+        return CMD_FIGURE;
     return CMD_UNKNOWN;
 }
 
@@ -193,6 +195,23 @@ void LL_Execute(void)
         SANITIZE_COLOR(colorType);
         API_clearscreen(colorType);
         break;
+
+    case CMD_FIGURE:
+	colorType = GetColorType(ParsedData[11]);
+	SANITIZE_COLOR(colorType);
+	API_draw_figure(atoi(ParsedData[1]),
+			atoi(ParsedData[2]),
+			atoi(ParsedData[3]),
+			atoi(ParsedData[4]),
+			atoi(ParsedData[5]),
+			atoi(ParsedData[6]),
+			atoi(ParsedData[7]),
+			atoi(ParsedData[8]),
+			atoi(ParsedData[9]),
+			atoi(ParsedData[10]),
+			colorType,
+			atoi(ParsedData[12]));
+	break;
 
     case CMD_DEBUG:
         int logLevel = atoi((ParsedData[1]));

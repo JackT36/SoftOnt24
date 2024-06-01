@@ -92,7 +92,7 @@ __inline void VGA_InterruptHsync(void)
     if(vgaData_s.lineCounter >= VGA_VSYNC_PERIODE)
     {
         // Address pointer first dot
-        vgaData_s.lineCounter = 1;	//1 removes top right pixel shift at 320x240. Not ALL resolutions work like this!
+        vgaData_s.lineCounter = 0;	//1 removes top right pixel shift at 320x240. Not ALL resolutions work like this!
         vgaData_s.startAddressDMA = (uint32_t)(&vgaData_s.videoRAM[0]);
     }
 
@@ -102,6 +102,7 @@ __inline void VGA_InterruptHsync(void)
     // Test for DMA start
     if((vgaData_s.lineCounter >= VGA_VSYNC_BILD_START) && (vgaData_s.lineCounter <= VGA_VSYNC_BILD_STOP))
     {
+
         // Restart DMA transfer
         DMA2_Stream5->CR = vgaData_s.dmaConfigRegister;
         DMA2_Stream5->M0AR = vgaData_s.startAddressDMA;
