@@ -105,9 +105,9 @@ int main(void)
     API_clearscreen(VGA_COLOUR_WHITE);
 
     API_draw_text(0, 0, VGA_COLOUR_BLACK, "TEST", "Joost", 15, 0, 0);
-    API_draw_line(50, 90, 50, 110, VGA_COLOUR_BLACK, 1, 0);
-//    API_draw_line(170, 110, 160, 130, VGA_COLOUR_BLACK, 1, 0);
-//    API_draw_line(160, 130, 170, 110, VGA_COLOUR_BLACK, 1, 0);
+    API_draw_line(50, 90, 60, 110, VGA_COLOUR_BLACK, 1, 0);
+    API_draw_line(170, 110, 160, 130, VGA_COLOUR_BLACK, 1, 0);
+    API_draw_line(160, 130, 170, 110, VGA_COLOUR_BLACK, 1, 0);
 
     //API_draw_circle(160, 120, 110, VGA_COLOUR_GREY, 1);
 

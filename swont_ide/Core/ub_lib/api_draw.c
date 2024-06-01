@@ -28,7 +28,7 @@
 /******************************************************************************
  *   Local function prototypes                                                 *
  ******************************************************************************/
-int DrawLine(int x1, int x2, int y1, int y2, int color);
+void DrawLine(int x1, int x2, int y1, int y2, int color);
 void DrawBitmap(int x, int y, Bitmap_s bitmap);
 
 /******************************************************************************
@@ -314,7 +314,7 @@ int API_draw_circle(int xCenterCircle, int yCenterCircle, int radius, int color,
 /******************************************************************************
  *   Local functions                                                           *
  ******************************************************************************/
-int DrawLine(int x1, int x2, int y1, int y2, int color)
+void DrawLine(int x1, int x2, int y1, int y2, int color)
 {
     int deltaX, deltaY, error, x, y;
 
@@ -323,7 +323,7 @@ int DrawLine(int x1, int x2, int y1, int y2, int color)
     x = x1;
     y = y1;
     error = (2 * deltaY) - deltaX;
-    while(x < x1) {
+    while(x < x2) {
         if (error >= 0) {
             VGA_SetPixel(x, y, color);
             y++;
@@ -334,7 +334,7 @@ int DrawLine(int x1, int x2, int y1, int y2, int color)
         }
         x++;
     }
-    return 0;
+    return;
 }
 
 void DrawBitmap(int x, int y, Bitmap_s bitmap)
