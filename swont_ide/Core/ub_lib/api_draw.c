@@ -316,23 +316,64 @@ int API_draw_circle(int xCenterCircle, int yCenterCircle, int radius, int color,
  ******************************************************************************/
 void DrawLine(int x1, int x2, int y1, int y2, int color)
 {
-    int deltaX, deltaY, error, x, y;
-
-    deltaX = x2 - x1;
-    deltaY = y2 - y1;
-    x = x1;
-    y = y1;
-    error = (2 * deltaY) - deltaX;
-    while(x < x2) {
-        if (error >= 0) {
-            VGA_SetPixel(x, y, color);
-            y++;
-            error += (2 * deltaY) - (2 * deltaX);
-        } else {
-            VGA_SetPixel(x, y, color);
-            error += (2 * deltaY);
+    if(x1 > x2) // will be optimised out
+    {
+        int xHolder = x1;
+        x1 = x2;
+        x2 = xHolder;
+    }
+    if(y1 > y2) // will be optimised out
+    {
+        int yHolder = y1;
+        y1 = y2;
+        y2 = yHolder;
+    }
+    int deltaX = x2 - x1;
+    int deltaY = y2 - y1;
+    int errorXY = 0;
+    if(deltaX == 0)
+    {
+        errorXY = INT32_MIN;
+    }
+    else if(deltaY == 0)
+    {
+        errorXY = INT32_MAX;
+    }
+    else
+    {
+        errorXY = (deltaX<<SHIFTING_MULTIPLY_FLOATLESS_CALC) / deltaY;
+    }
+    int workingError = errorXY;
+    while((x1 != x2) || (y1 != y2))
+    {
+        VGA_SetPixel(x1, y1, color);
+        if(workingError == INT32_MAX)
+        {
+            x1++;
+            continue;
         }
-        x++;
+        else if(workingError == INT32_MIN)
+        {
+            y1++;
+            continue;
+        }
+        if(workingError == (1<<SHIFTING_MULTIPLY_FLOATLESS_CALC))
+        {
+            x1++;
+            y1++;
+            workingError -= (1<<SHIFTING_MULTIPLY_FLOATLESS_CALC);
+        }
+        else if(workingError > (1<<SHIFTING_MULTIPLY_FLOATLESS_CALC))
+        {
+            x1++;
+            workingError -= (1<<SHIFTING_MULTIPLY_FLOATLESS_CALC);
+            continue;
+        }
+        else
+        {
+            y1++;
+        }
+        workingError += errorXY;
     }
     return;
 }
