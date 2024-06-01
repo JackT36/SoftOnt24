@@ -105,14 +105,11 @@ int main(void)
     API_clearscreen(VGA_COLOUR_WHITE);
 
     API_draw_text(0, 0, VGA_COLOUR_BLACK, "TEST", "Joost", 15, 0, 0);
-    API_draw_line(50, 90, 60, 110, VGA_COLOUR_BLACK, 1, 0);
-    API_draw_line(170, 110, 160, 130, VGA_COLOUR_BLACK, 1, 0);
-    API_draw_line(160, 130, 170, 110, VGA_COLOUR_BLACK, 1, 0);
 
-    //API_draw_circle(160, 120, 110, VGA_COLOUR_GREY, 1);
+    API_draw_circle(160, 120, 110, VGA_COLOUR_GREY, 0);
 
-//    API_draw_figure(50, 50, 100, 50, 100, 100, 50, 100, 50, 50, VGA_COLOUR_YELLOW, 0);
-//    API_draw_figure(150, 90, 170, 110, 160, 130, 140, 130, 130, 110, VGA_COLOUR_LIGHT_GREEN, 1);
+    API_draw_figure(50, 50, 100, 50, 100, 100, 50, 100, 50, 50, VGA_COLOUR_YELLOW, 0);
+    API_draw_figure(150, 90, 170, 110, 160, 130, 140, 130, 130, 110, VGA_COLOUR_LIGHT_GREEN, 1);
 
     HAL_GPIO_WritePin(Green_GPIO_Port, Green_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(Red_GPIO_Port, Red_Pin, GPIO_PIN_RESET);

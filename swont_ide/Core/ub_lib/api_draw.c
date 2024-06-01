@@ -11,7 +11,7 @@
 /******************************************************************************
  *   #defines                                                                  *
  ******************************************************************************/
-#define SHIFTING_MULTIPLY_FLOATLESS_CALC (8)
+#define MULTIPLY_FLOATLESS_CALC (8)
 #define FIGURE_WEIGHT 2
 /******************************************************************************
  *   Typedefs                                                                  *
@@ -91,36 +91,34 @@ int API_draw_line(int x1, int y1, int x2, int y2, int color, int weight,
 {
     if(weight <= 0)
     {
-        LOGE("Can not draw a line of 0 or less pixels");
-        return -1;
+	LOGE("Can not draw a line of 0 or less pixels");
+	return -1;
     }
     if((x1 < 0) || (x2 < 0) || (y1 < 0) || (y2 < 0) ||
-            (x1 >= VGA_DISPLAY_X) || (x2 >= VGA_DISPLAY_X) ||
-            (y1 >= VGA_DISPLAY_Y) || (y2 >= VGA_DISPLAY_Y))
+	    (x1 >= VGA_DISPLAY_X) || (x2 >= VGA_DISPLAY_X) ||
+	    (y1 >= VGA_DISPLAY_Y) || (y2 >= VGA_DISPLAY_Y))
     {
-        LOGE("Line start and end point must be on screen");
-        return -1;
+	LOGE("Line start and end point must be on screen");
+	return -1;
     }
-//    int stepX = 0;
-//    int stepY = 0;
-//    int deltaX = x2 - x1;
-//    int deltaY = y2 - y1;
-//    deltaX = abs(deltaX);
-//    deltaY = abs(deltaY);
-//    if(deltaX >= deltaY)
-//    {
-//        stepX++;
-//    }
-//    else
-//    {
-//        stepY++;
-//    }
-
-//    for(int i = 0; i < weight; i++)
-//    {
-    DrawLine(x1, x2, y1, y2, color);
-//    }
-//    LOGI("Line from {%d;%d} to {%d;%d} of %d thick", x1, y1, x2, y2, weight);
+    int stepX = 0;
+    int stepY = 0;
+    int deltaX = x2 - x1;
+    int deltaY = y2 - y1;
+    if(deltaX >= deltaY)
+    {
+	stepX++;
+    }
+    else
+    {
+	stepY++;
+    }
+    for(int i = 0; i < weight; i++)
+    {
+	DrawLine(x1 + (stepX * i), x2 + (stepX * i), y1 + (stepY * i),
+		 y2 + (stepY * i), color);
+    }
+    LOGI("Line from {%d;%d} to {%d;%d} of %d thick", x1, y1, x2, y2, weight);
     return 0;
 }
 
@@ -272,7 +270,8 @@ int API_draw_circle(int xCenterCircle, int yCenterCircle, int radius, int color,
     if(reserved)
     {
 	DrawLine(xCenterCircle, yCenterCircle - radius, xCenterCircle,
-		 yCenterCircle + radius, color);
+		 yCenterCircle + radius,
+		 color);
     }
     do
     {
@@ -316,66 +315,63 @@ int API_draw_circle(int xCenterCircle, int yCenterCircle, int radius, int color,
  ******************************************************************************/
 void DrawLine(int x1, int x2, int y1, int y2, int color)
 {
-    if(x1 > x2) // will be optimised out
+    int32_t deltaX = x2 - x1;
+    int32_t deltaY = y2 - y1;
+    int32_t xMod = 1;
+    int32_t yMod = 1;
+    int32_t errorXY;
+    if(deltaX < 0)
     {
-        int xHolder = x1;
-        x1 = x2;
-        x2 = xHolder;
+	xMod = -1;
     }
-    if(y1 > y2) // will be optimised out
+    if(deltaY < 0)
     {
-        int yHolder = y1;
-        y1 = y2;
-        y2 = yHolder;
+	yMod = -1;
     }
-    int deltaX = x2 - x1;
-    int deltaY = y2 - y1;
-    int errorXY = 0;
-    if(deltaX == 0)
+    if(deltaX == 0)         // Vertical line
     {
-        errorXY = INT32_MIN;
+	errorXY = INT32_MIN;
     }
-    else if(deltaY == 0)
+    else if(deltaY == 0)    // Horizontal line
     {
-        errorXY = INT32_MAX;
+	errorXY = INT32_MAX;
     }
     else
     {
-        errorXY = (deltaX<<SHIFTING_MULTIPLY_FLOATLESS_CALC) / deltaY;
+	errorXY = abs(deltaX * MULTIPLY_FLOATLESS_CALC / deltaY);
     }
     int workingError = errorXY;
     while((x1 != x2) || (y1 != y2))
     {
-        VGA_SetPixel(x1, y1, color);
-        if(workingError == INT32_MAX)
-        {
-            x1++;
-            continue;
-        }
-        else if(workingError == INT32_MIN)
-        {
-            y1++;
-            continue;
-        }
-        if(workingError == (1<<SHIFTING_MULTIPLY_FLOATLESS_CALC))
-        {
-            x1++;
-            y1++;
-            workingError -= (1<<SHIFTING_MULTIPLY_FLOATLESS_CALC);
-        }
-        else if(workingError > (1<<SHIFTING_MULTIPLY_FLOATLESS_CALC))
-        {
-            x1++;
-            workingError -= (1<<SHIFTING_MULTIPLY_FLOATLESS_CALC);
-            continue;
-        }
-        else
-        {
-            y1++;
-        }
-        workingError += errorXY;
+	VGA_SetPixel(x1, y1, color);
+	if(workingError == INT32_MAX)
+	{
+	    x1 += xMod;
+	    continue;
+	}
+	else if(workingError == INT32_MIN)
+	{
+	    y1 += yMod;
+	    continue;
+	}
+	else if(workingError == MULTIPLY_FLOATLESS_CALC)
+	{
+	    x1 += xMod;
+	    y1 += yMod;
+	    workingError -= MULTIPLY_FLOATLESS_CALC;
+	}
+	else if(workingError > MULTIPLY_FLOATLESS_CALC)
+	{
+	    x1 += xMod;
+	    workingError -= MULTIPLY_FLOATLESS_CALC;
+	    continue;
+	}
+	else
+	{
+	    y1 += yMod;
+	}
+	workingError += errorXY;
     }
-    return;
 }
 
 void DrawBitmap(int x, int y, Bitmap_s bitmap)
