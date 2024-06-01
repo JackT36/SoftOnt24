@@ -19,7 +19,7 @@
 /******************************************************************************
 *   #defines                                                                  *
 ******************************************************************************/
-#define MAX_VARS 10
+#define MAX_VARS 13
 #define BYTE_BUFLEN 	 1
 #define LINE_BUFLEN 	 1024
 #define CARRIAGE_RETURN  13 /* carriage return char \r */
@@ -49,6 +49,7 @@ typedef enum
 	CMD_TEXT,         /// Commando om tekst te tekenen.
 	CMD_BITMAP,       /// Commando om een bitmap te tonen.
 	CMD_CLEAR_SCREEN, /// Commando om het scherm te wissen.
+	CMD_FIGURE,	  /// Commando voor figuur te tekenen
 	CMD_DEBUG,        /// Commando om het log level aan te passen
 	CMD_UNKNOWN       /// Onbekend commando.
 } CommandType;
