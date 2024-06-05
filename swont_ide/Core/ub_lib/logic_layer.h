@@ -15,6 +15,7 @@
 ******************************************************************************/
 #include "main.h"
 #include "log.h"
+#include "log_config.h"
 
 /******************************************************************************
 *   #defines                                                                  *
@@ -49,7 +50,7 @@ typedef enum
 	CMD_TEXT,         /// Commando om tekst te tekenen.
 	CMD_BITMAP,       /// Commando om een bitmap te tonen.
 	CMD_CLEAR_SCREEN, /// Commando om het scherm te wissen.
-	CMD_FIGURE,	  /// Commando voor figuur te tekenen
+	CMD_FIGURE,	      /// Commando voor figuur te tekenen
 	CMD_DEBUG,        /// Commando om het log level aan te passen
 	CMD_UNKNOWN       /// Onbekend commando.
 } CommandType;
