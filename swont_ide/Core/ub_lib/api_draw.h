@@ -45,6 +45,6 @@ int API_clearscreen(uint8_t color);
 int API_draw_figure(int x_1, int y_1, int x_2, int y_2, int x_3, int y_3, int x_4,
 		    int y_4, int x_5, int y_5, int color, int closed);
 
-int API_draw_circle(int xCenterCircle, int yCenterCircle, int radius, int color, int reserved);
+int API_draw_circle(int x, int y, int radius, int color, int reserved);
 
 #endif //SWONT_IDE_API_DRAW_H

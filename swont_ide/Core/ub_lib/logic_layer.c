@@ -211,35 +211,35 @@ void LL_Execute(void)
         break;
 
     case CMD_FIGURE:
-	colorType = GetColorType(ParsedData[11]);
-	SANITIZE_COLOR(colorType);
-	API_draw_figure(atoi(ParsedData[1]),
-			atoi(ParsedData[2]),
-			atoi(ParsedData[3]),
-			atoi(ParsedData[4]),
-			atoi(ParsedData[5]),
-			atoi(ParsedData[6]),
-			atoi(ParsedData[7]),
-			atoi(ParsedData[8]),
-			atoi(ParsedData[9]),
-			atoi(ParsedData[10]),
-			colorType,
-			atoi(ParsedData[12]));
-	break;
+        colorType = GetColorType(ParsedData[11]);
+        SANITIZE_COLOR(colorType);
+        API_draw_figure(atoi(ParsedData[1]),
+                atoi(ParsedData[2]),
+                atoi(ParsedData[3]),
+                atoi(ParsedData[4]),
+                atoi(ParsedData[5]),
+                atoi(ParsedData[6]),
+                atoi(ParsedData[7]),
+                atoi(ParsedData[8]),
+                atoi(ParsedData[9]),
+                atoi(ParsedData[10]),
+                colorType,
+                atoi(ParsedData[12]));
+        break;
 
     case CMD_DEBUG:
-        int logLevel = atoi((ParsedData[1]));
-        if(logLevel >= LOG_NONE && logLevel <= LOG_VERBOSE)
-        {
-            LOG_SetLogLevel(logLevel);
-            LOGI("Log level changes: %d", logLevel);
-        }
-        else
-            LOGE("Log level not supported");
+//        int32_t logLvel = atoi((ParsedData[1]));
+//        if(logLevel >= LOG_NONE && logLevel <= LOG_VERBOSE)
+//        {
+//            LOG_SetLogLevel(logLevel);
+//            LOGI("Log level changes: %d", logLevel);
+//        }
+//        else
+//            LOGE("Log level not supported");
         break;
 
     case CMD_UNKNOWN:
-
+        /* Fall through */
     default:
         // Foutafhandeling voor onbekende commando's
         LOGW("Onbekend commando: %s\n", ParsedData[0]);

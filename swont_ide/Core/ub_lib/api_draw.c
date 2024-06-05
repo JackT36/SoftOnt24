@@ -3,9 +3,7 @@
  ******************************************************************************/
 #include <font.h>
 #include <stddef.h>
-#include <math.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include "api_draw.h"
 #include "logic_layer.h"
 #include "bitmap.h"
@@ -34,10 +32,10 @@
  *   Local function prototypes                                                 *
  ******************************************************************************/
 void DrawLine(int x1, int x2, int y1, int y2, int color);
+
 void DrawBitmap(int x, int y, Bitmap_s bitmap);
+
 void DrawText(int xt, int yt, int color, const char *text, const Font_s *glyphs, const uint8_t *fontData, uint8_t char_height);
-int get_font_index(const char *fontname, int fontsize, int fontstyle);
-//void draw_char(int x, int y, const uint16_t *bitmap, int width, int height, int color);
 /******************************************************************************
  *   Global functions                                                          *
  ******************************************************************************/
@@ -52,9 +50,9 @@ int get_font_index(const char *fontname, int fontsize, int fontstyle);
  * @param  reserved Unused
  * @retval Error code
  */
-int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname,
-		  int fontsize,
-		  int fontstyle, int reserved)
+int API_draw_text(int x_lup, int y_lup, int color, char* text, char* fontname,
+                  int fontsize,
+                  int fontstyle, int reserved)
 {
     if((text == NULL) || (fontname == NULL))
     {
@@ -62,10 +60,10 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname,
 	return -1;
     }
     if((x_lup >= VGA_DISPLAY_X) || (y_lup >= VGA_DISPLAY_Y) || (y_lup < 0)
-	    || (x_lup < 0))
+            || (x_lup < 0))
     {
-	LOGE("Out of bounce");
-	return -1;
+        LOGE("Out of bounce");
+        return -1;
     }
     if(fontsize < 1 )
     {
@@ -79,10 +77,14 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname,
     }
     if((fontstyle != 0) && (fontstyle != 1) && (fontstyle != 2))
     {
-	LOGE("Font style not supported");
+	LOGE("Fontsize too big");
 	return -1;
     }
-
+    if((fontstyle != 0) && (fontstyle != 1) && (fontstyle != 2))
+    {
+        LOGE("Font style not supported");
+        return -1;
+    }
     const Font_s *selectedFont = NULL;
     const uint8_t *fontData = NULL;
     if(strncmp(fontname, "arial", strlen ("arial")) == 0)
@@ -174,19 +176,19 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname,
  * @retval Error code
  */
 int API_draw_line(int x1, int y1, int x2, int y2, int color, int weight,
-		  int reserved)
+                  int reserved)
 {
     if(weight <= 0)
     {
-	LOGE("Can not draw a line of 0 or less pixels");
-	return -1;
+        LOGE("Can not draw a line of 0 or less pixels");
+        return -1;
     }
     if((x1 < 0) || (x2 < 0) || (y1 < 0) || (y2 < 0) ||
-	    (x1 >= VGA_DISPLAY_X) || (x2 >= VGA_DISPLAY_X) ||
-	    (y1 >= VGA_DISPLAY_Y) || (y2 >= VGA_DISPLAY_Y))
+            (x1 >= VGA_DISPLAY_X) || (x2 >= VGA_DISPLAY_X) ||
+            (y1 >= VGA_DISPLAY_Y) || (y2 >= VGA_DISPLAY_Y))
     {
-	LOGE("Line start and end point must be on screen");
-	return -1;
+        LOGE("Line start and end point must be on screen");
+        return -1;
     }
     int stepX = 0;
     int stepY = 0;
@@ -194,16 +196,16 @@ int API_draw_line(int x1, int y1, int x2, int y2, int color, int weight,
     int deltaY = y2 - y1;
     if(deltaX >= deltaY)
     {
-	stepX++;
+        stepX++;
     }
     else
     {
-	stepY++;
+        stepY++;
     }
     for(int i = 0; i < weight; i++)
     {
-	DrawLine(x1 + (stepX * i), x2 + (stepX * i), y1 + (stepY * i),
-		 y2 + (stepY * i), color);
+        DrawLine(x1 + (stepX * i), x2 + (stepX * i), y1 + (stepY * i),
+                 y2 + (stepY * i), color);
     }
     LOGI("Line from {%d;%d} to {%d;%d} of %d thick", x1, y1, x2, y2, weight);
     return 0;
@@ -222,35 +224,35 @@ int API_draw_line(int x1, int y1, int x2, int y2, int color, int weight,
  * @retval Error code
  */
 int API_draw_rectangle(int x, int y, int width, int height, int color,
-		       int filled,
-		       int reserved0,
-		       int reserved1)
+                       int filled,
+                       int reserved0,
+                       int reserved1)
 {
     if((x < 0) || (y < 0) || (width < 0) || (height < 0) || (x >= VGA_DISPLAY_X)
-	    || (y >= VGA_DISPLAY_Y) ||
-	    (x + width >= VGA_DISPLAY_X) || (y + height >= VGA_DISPLAY_Y))
+            || (y >= VGA_DISPLAY_Y) ||
+            (x + width >= VGA_DISPLAY_X) || (y + height >= VGA_DISPLAY_Y))
     {
-	LOGE("Out of bounce");
-	return -1;
+        LOGE("Out of bounce");
+        return -1;
     }
 
     if(filled)
     {
-	for(int i = y; i < (y + height); i++)
-	{
-	    DrawLine(x, x + width, i, i, color);
-	}
+        for(int i = y; i < (y + height); i++)
+        {
+            DrawLine(x, x + width, i, i, color);
+        }
     }
     else
     {
-	DrawLine(x, x + width, x, y, color);
-	DrawLine(x, x, y, y + height, color);
-	DrawLine(x + width, x + width, y, y + height, color);
-	DrawLine(x, x + width + 1, y + height, y + height, color);
+        DrawLine(x, x + width, x, y, color);
+        DrawLine(x, x, y, y + height, color);
+        DrawLine(x + width, x + width, y, y + height, color);
+        DrawLine(x, x + width + 1, y + height, y + height, color);
     }
     LOGI("Rectangle draw with width/height: {%d; %d} from {%d; %d} with color: 0x%x",
-	 width,
-	 height, x, y, color);
+         width,
+         height, x, y, color);
     return 0;
 }
 
@@ -266,17 +268,17 @@ int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
     size_t bitmapCount;
     if(bm_nr < 0 || bm_nr >= (bitmapCount = getBitmapCount()))
     {
-	LOGE("Invalid bitmap number");
-	return -1;
+        LOGE("Invalid bitmap number");
+        return -1;
     }
 
     Bitmap_s bitmap = bitmaps[bm_nr];
 
     if(x_lup
-	    < 0|| y_lup < 0 || x_lup + bitmap.width >= VGA_DISPLAY_X || y_lup + bitmap.height >= VGA_DISPLAY_Y)
+            < 0 || y_lup < 0 || x_lup + bitmap.width >= VGA_DISPLAY_X || y_lup + bitmap.height >= VGA_DISPLAY_Y)
     {
-	LOGE("Start position out of bounds");
-	return -1;
+        LOGE("Start position out of bounds");
+        return -1;
     }
 
     DrawBitmap(x_lup, y_lup, bitmap);
@@ -295,10 +297,10 @@ int API_clearscreen(uint8_t color)
     uint16_t xp, yp;
     for(yp = 0; yp < VGA_DISPLAY_Y; yp++)
     {
-	for(xp = 0; xp < VGA_DISPLAY_X; xp++)
-	{
-	    VGA_SetPixel(xp, yp, color);
-	}
+        for(xp = 0; xp < VGA_DISPLAY_X; xp++)
+        {
+            VGA_SetPixel(xp, yp, color);
+        }
     }
     LOGI("Screen filled with color: 0x%2x", color);
     return 0;
@@ -339,61 +341,57 @@ int API_draw_figure(int x_1, int y_1, int x_2, int y_2, int x_3, int y_3,
     return 0;
 }
 
-int API_draw_circle(int xCenterCircle, int yCenterCircle, int radius, int color,
-		    int reserved)
+int API_draw_circle(int x, int y, int radius, int color,
+                    int reserved)
 {
-    if(xCenterCircle >= 320 || yCenterCircle >= 240 || radius == 0)
+    if(x >= 320 || y >= 240 || radius == 0)
 	return -1;
 
-    int16_t x = -radius;
-    int16_t y = 0;
-    int32_t error = 2 - (radius << 1);
+    int16_t xWorking = -radius;
+    int16_t yWorking = 0;
+    int32_t error = 2 - (radius<<1);
     int32_t workingError;
 
     // Prototype: void SetPixel(uint8_t x, uint8_t y, bool turnOnPixel);
-    VGA_SetPixel(xCenterCircle, yCenterCircle - radius, color);
-    VGA_SetPixel(xCenterCircle, yCenterCircle + radius, color);
+    VGA_SetPixel(x, y - radius, color);
+    VGA_SetPixel(x, y + radius, color);
 
     if(reserved)
     {
-	DrawLine(xCenterCircle, yCenterCircle - radius, xCenterCircle,
-		 yCenterCircle + radius,
-		 color);
+        DrawLine(x, x, y - radius, y + radius, color);
     }
     do
     {
-	VGA_SetPixel(xCenterCircle - x, yCenterCircle - y, color);
-	VGA_SetPixel(xCenterCircle - x, yCenterCircle + y, color);
-	VGA_SetPixel(xCenterCircle + x, yCenterCircle - y, color);
-	VGA_SetPixel(xCenterCircle + x, yCenterCircle + y, color);
+        VGA_SetPixel(x - xWorking, y - yWorking, color);
+        VGA_SetPixel(x - xWorking, y + yWorking, color);
+        VGA_SetPixel(x + xWorking, y - yWorking, color);
+        VGA_SetPixel(x + xWorking, y + yWorking, color);
 
-	if(reserved)
-	{
-	    int16_t temp = y;
-	    do
-	    {
-		VGA_SetPixel(xCenterCircle + x, yCenterCircle + temp, color);
-		VGA_SetPixel(xCenterCircle + x, yCenterCircle - temp, color);
-		VGA_SetPixel(xCenterCircle - x, yCenterCircle + temp, color);
-		VGA_SetPixel(xCenterCircle - x, yCenterCircle - temp, color);
-	    }
-	    while(0 <= --temp);
-	}
-	workingError = error;
-	if(workingError <= y)
-	{
-	    y++;
-	    error += (y << 1) + 1;
-	    if(-x == y && workingError <= x)
-		workingError = 0;
-	}
-	if(workingError > x)
-	{
-	    x++;
-	    error += (x << 1) + 1;
-	}
-    }
-    while(x != 0);
+        if(reserved)
+        {
+            int16_t temp = yWorking;
+            do
+            {
+                VGA_SetPixel(x + xWorking, y + temp, color);
+                VGA_SetPixel(x + xWorking, y - temp, color);
+                VGA_SetPixel(x - xWorking, y + temp, color);
+                VGA_SetPixel(x - xWorking, y - temp, color);
+            }while(0 <= --temp);
+        }
+        workingError = error;
+        if(workingError <= yWorking)
+        {
+            yWorking++;
+            error += (yWorking<<1) + 1;
+            if(-xWorking == yWorking && workingError <= xWorking)
+                workingError = 0;
+        }
+        if(workingError > xWorking)
+        {
+            xWorking++;
+            error += (xWorking<<1) + 1;
+        }
+    }while(xWorking != 0);
     return 0;
 }
 
@@ -409,55 +407,55 @@ void DrawLine(int x1, int x2, int y1, int y2, int color)
     int32_t errorXY;
     if(deltaX < 0)
     {
-	xMod = -1;
+        xMod = -1;
     }
     if(deltaY < 0)
     {
-	yMod = -1;
+        yMod = -1;
     }
     if(deltaX == 0)         // Vertical line
     {
-	errorXY = INT32_MIN;
+        errorXY = INT32_MIN;
     }
     else if(deltaY == 0)    // Horizontal line
     {
-	errorXY = INT32_MAX;
+        errorXY = INT32_MAX;
     }
     else
     {
-	errorXY = abs(deltaX * MULTIPLY_FLOATLESS_CALC / deltaY);
+        errorXY = abs(deltaX * MULTIPLY_FLOATLESS_CALC / deltaY);
     }
     int workingError = errorXY;
     while((x1 != x2) || (y1 != y2))
     {
-	VGA_SetPixel(x1, y1, color);
-	if(workingError == INT32_MAX)
-	{
-	    x1 += xMod;
-	    continue;
-	}
-	else if(workingError == INT32_MIN)
-	{
-	    y1 += yMod;
-	    continue;
-	}
-	else if(workingError == MULTIPLY_FLOATLESS_CALC)
-	{
-	    x1 += xMod;
-	    y1 += yMod;
-	    workingError -= MULTIPLY_FLOATLESS_CALC;
-	}
-	else if(workingError > MULTIPLY_FLOATLESS_CALC)
-	{
-	    x1 += xMod;
-	    workingError -= MULTIPLY_FLOATLESS_CALC;
-	    continue;
-	}
-	else
-	{
-	    y1 += yMod;
-	}
-	workingError += errorXY;
+        VGA_SetPixel(x1, y1, color);
+        if(workingError == INT32_MAX)
+        {
+            x1 += xMod;
+            continue;
+        }
+        else if(workingError == INT32_MIN)
+        {
+            y1 += yMod;
+            continue;
+        }
+        else if(workingError == MULTIPLY_FLOATLESS_CALC)
+        {
+            x1 += xMod;
+            y1 += yMod;
+            workingError -= MULTIPLY_FLOATLESS_CALC;
+        }
+        else if(workingError > MULTIPLY_FLOATLESS_CALC)
+        {
+            x1 += xMod;
+            workingError -= MULTIPLY_FLOATLESS_CALC;
+            continue;
+        }
+        else
+        {
+            y1 += yMod;
+        }
+        workingError += errorXY;
     }
 }
 
@@ -516,14 +514,14 @@ void DrawBitmap(int x, int y, Bitmap_s bitmap)
 {
     for(int j = 0; j < bitmap.height; j++)
     {
-	for(int i = 0; i < bitmap.width; i++)
-	{
-	    int color = bitmap.bitmap[j * bitmap.width + i]; // Access the 2D array stored as a 1D array
-	    //if (color != 0x00) //option for choosing transparent colour to not draw
-	    //{
-	    VGA_SetPixel(x + i, y + j, color);
-	    //}
-	}
+        for(int i = 0; i < bitmap.width; i++)
+        {
+            int color = bitmap.bitmap[j * bitmap.width + i]; // Access the 2D array stored as a 1D array
+            //if (color != 0x00) //option for choosing transparent colour to not draw
+            //{
+            VGA_SetPixel(x + i, y + j, color);
+            //}
+        }
     }
 }
 
