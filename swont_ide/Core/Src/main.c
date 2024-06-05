@@ -104,7 +104,7 @@ int main(void)
     VGA_Init(); // Init vgaData_s-Screen
     API_clearscreen(VGA_COLOUR_WHITE);
 
-    API_draw_text(10, 100, VGA_COLOUR_RED, "Trang", "arial", 1, 2, 0);
+    API_draw_text(10, 100, VGA_COLOUR_PINK, "the quick brown fox jumps over the lazy dog", "arial", 2, 1, 0);
 
 //    API_draw_circle(160, 120, 110, VGA_COLOUR_GREY, 0);
 //

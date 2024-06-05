@@ -16,6 +16,8 @@
  ******************************************************************************/
 #define MULTIPLY_FLOATLESS_CALC (256)
 #define FIGURE_WEIGHT 2
+#define FIRST_PRINTABLE_CHAR 32
+#define LAST_PRINTABLE_CHAR 126
 /******************************************************************************
  *   Typedefs                                                                  *
  ******************************************************************************/
@@ -33,7 +35,8 @@
  ******************************************************************************/
 void DrawLine(int x1, int x2, int y1, int y2, int color);
 void DrawBitmap(int x, int y, Bitmap_s bitmap);
-void DrawText(int xt, int yt, int color, const char *text, const Font_s *glyphs, const uint16_t *fontData);
+void DrawText(int xt, int yt, int color, const char *text, const Font_s *glyphs, const uint8_t *fontData, uint8_t char_height);
+int get_font_index(const char *fontname, int fontsize, int fontstyle);
 //void draw_char(int x, int y, const uint16_t *bitmap, int width, int height, int color);
 /******************************************************************************
  *   Global functions                                                          *
@@ -81,20 +84,47 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname,
     }
 
     const Font_s *selectedFont = NULL;
+    const uint8_t *fontData = NULL;
     if(strncmp(fontname, "arial", strlen ("arial")) == 0)
     {
     	if ((fontsize == 1) && (fontstyle == 2))
     	{
     		selectedFont = Arial_1_Cursive_dsc;
+    		fontData = Arial_1_Cursive;
+    	}
+    	else if ((fontsize == 2) && (fontstyle == 2))
+    	{
+            selectedFont = Arial_2_Cursive_dsc;
+            fontData = Arial_2_Cursive;
+    	}
+    	else if ((fontsize == 1) && (fontstyle == 0))
+    	{
+            selectedFont = Arial_1_Normal_dsc;
+            fontData = Arial_1_Normal;
+    	}
+    	else if ((fontsize == 2) && (fontstyle == 0))
+    	{
+            selectedFont = Arial_2_Normal_dsc;
+            fontData = Arial_2_Normal;
+    	}
+    	else if ((fontsize == 1) && (fontstyle == 1))
+    	{
+            selectedFont = Arial_1_Bold_dsc;
+            fontData = Arial_1_Bold;
+    	}
+    	else if ((fontsize == 2) && (fontstyle == 1))
+    	{
+            selectedFont = Arial_2_Bold_dsc;
+            fontData = Arial_2_Bold;
     	}
     }
-    if (!selectedFont)
+    if (!selectedFont || !fontData)
     {
          LOGE("No suitable font found");
          return -1;
      }
 
-    DrawText(x_lup, y_lup, color, text, selectedFont, Arial_1_Cursive);
+    DrawText(x_lup, y_lup, color, text, selectedFont, fontData, selectedFont->h_px);
 	LOGI("Text %s drawn at {%d, %d}", text, x_lup, y_lup);
 	return 0;
 }
@@ -398,36 +428,54 @@ void DrawLine(int x1, int x2, int y1, int y2, int color)
     }
 }
 
-//const uint16_t *get_bitmap_font(char c, Font_s font)
-//{
-//    int index = c - ' ';  // Aanname dat de letter ' ' op index 0 begint
-//    return &font.data[index * (font.h_px * font.w_px)];  // Aangepast om rekening te houden met hele karakter
-//}
+void draw_char(int x, int y, const uint8_t *bitmap, int width, int height, int color)
+{
+    int pixels_per_byte = 8 / 2; // 4 pixels per byte for 2bpp
+    int bytes_per_row = (width + pixels_per_byte - 1) / pixels_per_byte; // Number of bytes per row, rounded up
 
-void draw_char(int x, int y, const uint16_t *bitmap, int width, int height, int color) {
-    for (int j = 0; j < height; j++) {
-        for (int i = 0; i < width; i++) {
-            uint16_t pixel = bitmap[j * width + i];
-            if (pixel != 0) {
-                VGA_SetPixel(x + i, y + j, color);
+    for (int j = 0; j < height; j++)
+    {
+        for (int i = 0; i < width; i++)
+        {
+            int byte_index = j * bytes_per_row + i / pixels_per_byte; // Find the right byte for this pixel
+            int bit_index = (i % pixels_per_byte) * 2; // bit index within the byte (0 is most significant set of 2 bits)
+            uint8_t pixel_data = bitmap[byte_index];
+            uint8_t pixel = (pixel_data >> (6 - bit_index)) & 0x3; //Get the specific 2 bits
+
+            int pixel_color;
+            if (pixel == 0)
+            {
+                // Do nothing, skip drawing the pixel for transparency
+                continue;
             }
+            else
+            {
+                pixel_color = color;
+            }
+
+            VGA_SetPixel(x + i, y + j, pixel_color);
         }
     }
 }
 
-
-void DrawText (int xt, int yt, int color, const char *text, const Font_s *glyphs, const uint16_t *fontData)
+void DrawText (int xt, int yt, int color, const char *text, const Font_s *glyphs, const uint8_t *fontData, uint8_t char_height)
 {
-    int cursor_x = xt;  // Startpositie X
+    int cursor_x = xt;  // Startposition X
 
     while (*text)
     {
     	unsigned char c = *text++;
-    	if (c < 32 || c > 126) continue; // Negeer niet-afdrukbare karak
-    	const Font_s *glyph = &glyphs[c - 32];
-		const uint16_t *bitmap = fontData + glyph->glyph_index;
-    	draw_char(cursor_x, yt, bitmap, glyph->w_px, 12, color); // Breedte per karakter
-    	cursor_x += glyph->w_px; // Beweeg cursor horizontaal
+    	if (c < FIRST_PRINTABLE_CHAR  || c > LAST_PRINTABLE_CHAR) continue; //Skip unprintable characters
+    	const Font_s *glyph = &glyphs[c - FIRST_PRINTABLE_CHAR ];
+		const uint8_t *bitmap = fontData + glyph->glyph_index;
+
+		if (cursor_x +glyph->w_px > SCREEN_SIZE_HORIZONTAL)
+		{
+            cursor_x = xt; // Reset X to startposition
+            yt += char_height; // Move Y to the next line
+		}
+    	draw_char(cursor_x, yt, bitmap, glyph->w_px, char_height, color); // Width per character
+    	cursor_x += glyph->w_px; // Move cursor horizontally
     }
 }
 
