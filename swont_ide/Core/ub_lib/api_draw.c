@@ -1,6 +1,7 @@
 /******************************************************************************
  *   Includes                                                                  *
  ******************************************************************************/
+#include <font.h>
 #include <stddef.h>
 #include <math.h>
 #include <stdlib.h>
@@ -8,6 +9,8 @@
 #include "api_draw.h"
 #include "logic_layer.h"
 #include "bitmap.h"
+#include <string.h>
+
 /******************************************************************************
  *   #defines                                                                  *
  ******************************************************************************/
@@ -30,7 +33,8 @@
  ******************************************************************************/
 void DrawLine(int x1, int x2, int y1, int y2, int color);
 void DrawBitmap(int x, int y, Bitmap_s bitmap);
-
+void DrawText(int xt, int yt, int color, const char *text, const Font_s *glyphs, const uint16_t *fontData);
+//void draw_char(int x, int y, const uint16_t *bitmap, int width, int height, int color);
 /******************************************************************************
  *   Global functions                                                          *
  ******************************************************************************/
@@ -51,7 +55,7 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname,
 {
     if((text == NULL) || (fontname == NULL))
     {
-	LOGE("Font name and/or Text ti be displayed are not existing");
+	LOGE("Font name and/or Text to be displayed are not existing");
 	return -1;
     }
     if((x_lup >= VGA_DISPLAY_X) || (y_lup >= VGA_DISPLAY_Y) || (y_lup < 0)
@@ -60,19 +64,39 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname,
 	LOGE("Out of bounce");
 	return -1;
     }
-    if(fontsize < 1)
+    if(fontsize < 1 )
     {
-	LOGE("Fontsize to small");
+	LOGE("Fontsize too small");
 	return -1;
     }
-    if((fontstyle != 0) && (fontstyle != 1) && (fontstyle != 3))
+    if(fontsize > 2 )
+    {
+	LOGE("Fontsize too big");
+	return -1;
+    }
+    if((fontstyle != 0) && (fontstyle != 1) && (fontstyle != 2))
     {
 	LOGE("Font style not supported");
 	return -1;
     }
 
-    LOGW("Not implemented yet");
-    return 1;
+    const Font_s *selectedFont = NULL;
+    if(strncmp(fontname, "arial", strlen ("arial")) == 0)
+    {
+    	if ((fontsize == 1) && (fontstyle == 2))
+    	{
+    		selectedFont = Arial_1_Cursive_dsc;
+    	}
+    }
+    if (!selectedFont)
+    {
+         LOGE("No suitable font found");
+         return -1;
+     }
+
+    DrawText(x_lup, y_lup, color, text, selectedFont, Arial_1_Cursive);
+	LOGI("Text %s drawn at {%d, %d}", text, x_lup, y_lup);
+	return 0;
 }
 
 /**
@@ -374,6 +398,39 @@ void DrawLine(int x1, int x2, int y1, int y2, int color)
     }
 }
 
+//const uint16_t *get_bitmap_font(char c, Font_s font)
+//{
+//    int index = c - ' ';  // Aanname dat de letter ' ' op index 0 begint
+//    return &font.data[index * (font.h_px * font.w_px)];  // Aangepast om rekening te houden met hele karakter
+//}
+
+void draw_char(int x, int y, const uint16_t *bitmap, int width, int height, int color) {
+    for (int j = 0; j < height; j++) {
+        for (int i = 0; i < width; i++) {
+            uint16_t pixel = bitmap[j * width + i];
+            if (pixel != 0) {
+                VGA_SetPixel(x + i, y + j, color);
+            }
+        }
+    }
+}
+
+
+void DrawText (int xt, int yt, int color, const char *text, const Font_s *glyphs, const uint16_t *fontData)
+{
+    int cursor_x = xt;  // Startpositie X
+
+    while (*text)
+    {
+    	unsigned char c = *text++;
+    	if (c < 32 || c > 126) continue; // Negeer niet-afdrukbare karak
+    	const Font_s *glyph = &glyphs[c - 32];
+		const uint16_t *bitmap = fontData + glyph->glyph_index;
+    	draw_char(cursor_x, yt, bitmap, glyph->w_px, 12, color); // Breedte per karakter
+    	cursor_x += glyph->w_px; // Beweeg cursor horizontaal
+    }
+}
+
 void DrawBitmap(int x, int y, Bitmap_s bitmap)
 {
     for(int j = 0; j < bitmap.height; j++)
@@ -388,3 +445,4 @@ void DrawBitmap(int x, int y, Bitmap_s bitmap)
 	}
     }
 }
+

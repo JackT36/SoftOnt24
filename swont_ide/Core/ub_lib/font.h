@@ -4,30 +4,27 @@
 *   Includes                                                                  *
 ******************************************************************************/
 #include <stdint.h>
+#include <stddef.h>
 /******************************************************************************
 *   #defines                                                                  *
 ******************************************************************************/
-
+#define Arial_1_Cursive_12px
 /******************************************************************************
 *   Typedefs                                                                  *
 ******************************************************************************/
-//typedef struct {
-//    uint16_t heightFont;
-//    uint16_t widthFont;
-//    uint8_t fontArray[][][42];
-//} font_s;
-//
-//
-//typedef struct {
-//    font_s normal[2];
-//    font_s italic[2];
-//    font_s bold[2];
-//} font_complete_s;
+typedef struct
+{
+    uint8_t w_px;        // Breedte van het teken in pixels			// Hoogte van het teken in pixel
+    uint16_t glyph_index; // Index van het teken in een bitmap array
+} Font_s;
 
 /******************************************************************************
 *   Globals vars                                                              *
 ******************************************************************************/
-
+#ifdef Arial_1_Cursive_12px
+extern const Font_s Arial_1_Cursive_dsc[];
+extern const uint16_t Arial_1_Cursive[];
+#endif
 /******************************************************************************
 *   Global function prototypes                                                *
 ******************************************************************************/

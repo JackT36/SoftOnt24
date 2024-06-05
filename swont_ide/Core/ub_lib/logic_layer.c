@@ -103,6 +103,18 @@ ColorType GetColorType(const char* colorString)
     return CMD_UNKNOWN_COLOR;
 }
 
+FontStyle GetFontStyle (const char* fontstyleString)
+{
+	if (strncmp(fontstyleString, "normaal", strlen("normaal")) == 0)
+		return FONT_STYLE_NORMAAL;
+	if (strncmp(fontstyleString, "vet", strlen("vet")) == 0)
+		return FONT_STYLE_VET;
+	if (strncmp(fontstyleString, "cursief", strlen("cursief")) == 0)
+		return FONT_STYLE_CURSIEF;
+	return UNKNOWN_FONT_STYLE;
+}
+
+
 /******************************************************************************
 *   Global functions                                                          *
 ******************************************************************************/
@@ -145,6 +157,7 @@ void LL_Execute(void)
 {
     CommandType commandType = GetCommandType(ParsedData[0]);
     ColorType colorType;
+    FontStyle fontStyle = GetFontStyle (ParsedData[7]);
     switch(commandType)
     {
     case CMD_LINE:
@@ -177,11 +190,12 @@ void LL_Execute(void)
         SANITIZE_COLOR(colorType);
         API_draw_text(atoi(ParsedData[1]),
                       atoi(ParsedData[2]),
-                      colorType, ParsedData[4],
-                      (ParsedData[5]),
+                      colorType,
+					  ParsedData[4],
+                      ParsedData[5],
                       atoi(ParsedData[6]),
-                      atoi(ParsedData[7]),
-                      atoi(ParsedData[8]));
+					  fontStyle,
+					  atoi(ParsedData[8]));
         break;
 
     case CMD_BITMAP:
