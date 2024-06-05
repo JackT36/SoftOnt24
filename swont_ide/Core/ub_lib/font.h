@@ -14,6 +14,12 @@
 #define Arial_2_Normal_18px
 #define Arial_1_Bold_12px
 #define Arial_2_Bold_18px
+#define Consolas_1_Cursive_12px
+#define Consolas_2_Cursive_18px
+#define Consolas_1_Normal_12px
+#define Consolas_2_Normal_18px
+#define Consolas_1_Bold_12px
+#define Consolas_2_Bold_18px
 /******************************************************************************
 *   Typedefs                                                                  *
 ******************************************************************************/
@@ -50,6 +56,30 @@ extern const uint8_t Arial_1_Bold[];
 #ifdef Arial_2_Bold_18px
 extern const Font_s Arial_2_Bold_dsc[];
 extern const uint8_t Arial_2_Bold[];
+#endif
+#ifdef Consolas_1_Cursive_12px
+extern const Font_s Consolas_1_Cursive_dsc[];
+extern const uint8_t Consolas_1_Cursive[];
+#endif
+#ifdef Consolas_2_Cursive_18px
+extern const Font_s Consolas_2_Cursive_dsc[];
+extern const uint8_t Consolas_2_Cursive[];
+#endif
+#ifdef Consolas_1_Normal_12px
+extern const Font_s Consolas_1_Normal_dsc[];
+extern const uint8_t Consolas_1_Normal[];
+#endif
+#ifdef Consolas_2_Normal_18px
+extern const Font_s Consolas_2_Normal_dsc[];
+extern const uint8_t Consolas_2_Normal[];
+#endif
+#ifdef Consolas_1_Bold_12px
+extern const Font_s Consolas_1_Bold_dsc[];
+extern const uint8_t Consolas_1_Bold[];
+#endif
+#ifdef Consolas_2_Bold_18px
+extern const Font_s Consolas_2_Bold_dsc[];
+extern const uint8_t Consolas_2_Bold[];
 #endif
 /******************************************************************************
 *   Global function prototypes                                                *

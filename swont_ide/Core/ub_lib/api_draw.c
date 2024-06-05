@@ -118,6 +118,39 @@ int API_draw_text(int x_lup, int y_lup, int color, char *text, char *fontname,
             fontData = Arial_2_Bold;
     	}
     }
+    else if(strncmp(fontname, "consolas", strlen ("consolas")) == 0)
+    {
+    	if ((fontsize == 1) && (fontstyle == 2))
+    	{
+    		selectedFont = Consolas_1_Cursive_dsc;
+    		fontData = Consolas_1_Cursive;
+    	}
+    	else if ((fontsize == 2) && (fontstyle == 2))
+    	{
+            selectedFont = Consolas_2_Cursive_dsc;
+            fontData = Consolas_2_Cursive;
+    	}
+    	else if ((fontsize == 1) && (fontstyle == 0))
+    	{
+            selectedFont = Consolas_1_Normal_dsc;
+            fontData = Consolas_1_Normal;
+    	}
+    	else if ((fontsize == 2) && (fontstyle == 0))
+    	{
+            selectedFont = Consolas_2_Normal_dsc;
+            fontData = Consolas_2_Normal;
+    	}
+    	else if ((fontsize == 1) && (fontstyle == 1))
+    	{
+            selectedFont = Consolas_1_Bold_dsc;
+            fontData = Consolas_1_Bold;
+    	}
+    	else if ((fontsize == 2) && (fontstyle == 1))
+    	{
+            selectedFont = Consolas_2_Bold_dsc;
+            fontData = Consolas_2_Bold;
+    	}
+    }
     if (!selectedFont || !fontData)
     {
          LOGE("No suitable font found");
