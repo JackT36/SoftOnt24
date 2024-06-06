@@ -87,6 +87,15 @@ typedef enum
 	CMD_UNKNOWN_COLOR = -1
 } ColorType;
 
+typedef enum
+{
+	FONT_STYLE_NORMAAL = 0,
+	FONT_STYLE_VET = 1,
+	FONT_STYLE_CURSIEF = 2,
+	UNKNOWN_FONT_STYLE = -1
+} FontStyle;
+
+
 /******************************************************************************
 *   Globals vars                                                              *
 ******************************************************************************/
