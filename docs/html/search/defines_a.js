@@ -8,5 +8,6 @@ var searchData=
   ['mac_5faddr5_5',['MAC_ADDR5',['../stm32f4xx__hal__conf_8h.html#a3bcc92663c42ec434f527847bbc4abc1',1,'stm32f4xx_hal_conf.h']]],
   ['max_5fmessage_5flength_6',['MAX_MESSAGE_LENGTH',['../log_8c.html#ab234d1358562b66925fb7223c087556b',1,'log.c']]],
   ['max_5fvars_7',['MAX_VARS',['../logic__layer_8h.html#a5c707deff4e68c7283f2ed73665e0c77',1,'logic_layer.h']]],
-  ['min_8',['MIN',['../log_8c.html#a3acffbd305ee72dcd4593c0d8af64a4f',1,'log.c']]]
+  ['min_8',['MIN',['../log_8c.html#a3acffbd305ee72dcd4593c0d8af64a4f',1,'log.c']]],
+  ['multiply_5ffloatless_5fcalc_9',['MULTIPLY_FLOATLESS_CALC',['../api__draw_8c.html#ab606921690e1e8c520496be18abf50d9',1,'api_draw.c']]]
 ];

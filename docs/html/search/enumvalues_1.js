@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['log_5fdebug_0',['LOG_DEBUG',['../log__config_8h.html#a8afdce0fcb23aca7d0641a1e2d233782ab9f002c6ffbfd511da8090213227454e',1,'log_config.h']]],
-  ['log_5ferror_1',['LOG_ERROR',['../log__config_8h.html#a8afdce0fcb23aca7d0641a1e2d233782a230506cce5c68c3bac5a821c42ed3473',1,'log_config.h']]],
-  ['log_5finfo_2',['LOG_INFO',['../log__config_8h.html#a8afdce0fcb23aca7d0641a1e2d233782a6e98ff471e3ce6c4ef2d75c37ee51837',1,'log_config.h']]],
-  ['log_5fnone_3',['LOG_NONE',['../log__config_8h.html#a8afdce0fcb23aca7d0641a1e2d233782a85639df34979de4e5ff6f7b05e4de8f1',1,'log_config.h']]],
-  ['log_5fverbose_4',['LOG_VERBOSE',['../log__config_8h.html#a8afdce0fcb23aca7d0641a1e2d233782ac74e4f8b7fa7b544b66d09e854b8773a',1,'log_config.h']]],
-  ['log_5fwarn_5',['LOG_WARN',['../log__config_8h.html#a8afdce0fcb23aca7d0641a1e2d233782ac8041ffa22bc823d4726701cdb13fc13',1,'log_config.h']]]
+  ['font_5fstyle_5fcursief_0',['FONT_STYLE_CURSIEF',['../logic__layer_8h.html#a5e5699dd6b22c785fd82a0e87f2c5bfea9375579a31bbd01c45dd73100ea34190',1,'logic_layer.h']]],
+  ['font_5fstyle_5fnormaal_1',['FONT_STYLE_NORMAAL',['../logic__layer_8h.html#a5e5699dd6b22c785fd82a0e87f2c5bfeaf82e50b2c1ab4cfba4501d0b56b73b06',1,'logic_layer.h']]],
+  ['font_5fstyle_5fvet_2',['FONT_STYLE_VET',['../logic__layer_8h.html#a5e5699dd6b22c785fd82a0e87f2c5bfea51f8d606359e4278315f95b30a895562',1,'logic_layer.h']]]
 ];

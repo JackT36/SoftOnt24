@@ -1,12 +1,23 @@
 var searchData=
 [
-  ['eth_5firqn_0',['ETH_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8ad71328dd95461b7c55b568cf25966f6a',1,'stm32f407xx.h']]],
-  ['eth_5fwkup_5firqn_1',['ETH_WKUP_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a0485578005e12c2e2c0fb253a844ec6f',1,'stm32f407xx.h']]],
-  ['exti0_5firqn_2',['EXTI0_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8ab6aa6f87d26bbc6cf99b067b8d75c2f7',1,'stm32f407xx.h']]],
-  ['exti15_5f10_5firqn_3',['EXTI15_10_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a9fb0ad0c850234d1983fafdb17378e2f',1,'stm32f407xx.h']]],
-  ['exti1_5firqn_4',['EXTI1_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8ae4badcdecdb94eb10129c4c0577c5e19',1,'stm32f407xx.h']]],
-  ['exti2_5firqn_5',['EXTI2_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8a082cb3f7839069a0715fd76c7eacbbc9',1,'stm32f407xx.h']]],
-  ['exti3_5firqn_6',['EXTI3_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8add889c84ba5de466ced209069e05d602',1,'stm32f407xx.h']]],
-  ['exti4_5firqn_7',['EXTI4_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8ab70a40106ca4486770df5d2072d9ac0e',1,'stm32f407xx.h']]],
-  ['exti9_5f5_5firqn_8',['EXTI9_5_IRQn',['../group___peripheral__interrupt__number__definition.html#gga7e1129cd8a196f4284d41db3e82ad5c8aa3aa50e0353871985facf62d055faa52',1,'stm32f407xx.h']]]
+  ['vga_5fcolour_5fblack_0',['VGA_COLOUR_BLACK',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83aa290b9316712aac3e143a493b654029b',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fblue_1',['VGA_COLOUR_BLUE',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a4f3f17724b8b273fce8e3a89fddcecd4',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fbrown_2',['VGA_COLOUR_BROWN',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83aa013feb564a362f3f01856b8a72d546e',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fcyan_3',['VGA_COLOUR_CYAN',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83aaae2a6e8180f8b90b6fdedc7d198cb28',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fgreen_4',['VGA_COLOUR_GREEN',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83af7a341c9b4430ad390cc7c30c6094428',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fgrey_5',['VGA_COLOUR_GREY',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83abe2c1c53f51b7f1970ff6ba25e1ad655',1,'logic_layer.h']]],
+  ['vga_5fcolour_5flight_5fblue_6',['VGA_COLOUR_LIGHT_BLUE',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a08ba253d90476b592de1075bd49a1f69',1,'logic_layer.h']]],
+  ['vga_5fcolour_5flight_5fcyan_7',['VGA_COLOUR_LIGHT_CYAN',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83acbb69a0b8af31ab428e91c8dd4aa06ae',1,'logic_layer.h']]],
+  ['vga_5fcolour_5flight_5fgreen_8',['VGA_COLOUR_LIGHT_GREEN',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83ad418a9cfcf9ed845ce2249b1677e2335',1,'logic_layer.h']]],
+  ['vga_5fcolour_5flight_5fmagenta_9',['VGA_COLOUR_LIGHT_MAGENTA',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a8f50f1ba60765a868fd4e12033f283b6',1,'logic_layer.h']]],
+  ['vga_5fcolour_5flight_5forange_10',['VGA_COLOUR_LIGHT_ORANGE',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a8b8cb8765803ee1570ed3a99ce6250fd',1,'logic_layer.h']]],
+  ['vga_5fcolour_5flight_5fred_11',['VGA_COLOUR_LIGHT_RED',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a7dc480e047f33531d9af0228ebe4947a',1,'logic_layer.h']]],
+  ['vga_5fcolour_5flight_5fyellow_12',['VGA_COLOUR_LIGHT_YELLOW',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a01892bbf83a1c4d5f4fe064c01636160',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fmagenta_13',['VGA_COLOUR_MAGENTA',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a01ca6621308a3e731d724c6a8009a17f',1,'logic_layer.h']]],
+  ['vga_5fcolour_5forange_14',['VGA_COLOUR_ORANGE',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a5f1ca7ab4db47792e909559aac8ff9c8',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fpink_15',['VGA_COLOUR_PINK',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a3e4a16c7405cb75255f1e07c282ad68f',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fpurple_16',['VGA_COLOUR_PURPLE',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a0ac8e5622e4a920f61ecb1d744a46103',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fred_17',['VGA_COLOUR_RED',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a7c71de16ae72f57462ad8d68f821c5fd',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fwhite_18',['VGA_COLOUR_WHITE',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a97e3fec37b168fe2bcaa412fa7a7c540',1,'logic_layer.h']]],
+  ['vga_5fcolour_5fyellow_19',['VGA_COLOUR_YELLOW',['../logic__layer_8h.html#a5e133660cf9d4bcd1cb6a49e3ec16f83a60e5d32a80145a35880f661c7f83a73e',1,'logic_layer.h']]]
 ];

@@ -44,9 +44,9 @@ void DrawText(int xt, int yt, int color, const char *text, const Font_s *glyphs,
  * @param  x_lup Start location of the text x-axis
  * @param  y_lup Start location of the text y-axis
  * @param  color String to be displayed
- * @param  fontname Font name
- * @param  fontsize Size of characters
- * @param  fontstyle
+ * @param  fontname Font name Arial, Consolas
+ * @param  fontsize Size of characters 1,2
+ * @param  fontstyle Normal, cursive, bold
  * @param  reserved Unused
  * @retval Error code
  */
