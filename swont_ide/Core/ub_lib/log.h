@@ -31,6 +31,7 @@
 
 #define FILENAME_ (__builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__)
 
+
 #define LOGH(format, ...)        LOG_(LOG_ERROR,   LOG_COLOR_H,      FILENAME_, __LINE__, H, format, ##__VA_ARGS__)     // @brief Hardware Info
 #define LOGU(format, ...)        LOG_(LOG_ERROR,   LOG_COLOR_E,      FILENAME_, __LINE__, U, format, ##__VA_ARGS__)     // @brief Urgent. System will not work. Think Hard fault. I2C Device not detected.
 #define LOGE(format, ...)        LOG_(LOG_ERROR,   LOG_COLOR_E,      FILENAME_, __LINE__, E, format, ##__VA_ARGS__)     // @brief Error. System can not handle this fault. Thick out of bounce. Failed malloc. Can not be directly handled

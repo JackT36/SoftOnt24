@@ -253,7 +253,7 @@ void USART2_IRQHandler(void)
         / Recommend to use dot to terminate when sending single message using SPT */
         if((uart_char == CARRIAGE_RETURN) || (uart_char == '.') || (uart_char == LINE_FEED))
         {
-            LOGD("EOL received");            // end of line
+//            LOGD("EOL received");            // end of line
             Input.command_execute_flag = TRUE;        // Set the flag to indicate command execution
             Input.msglen = Input.char_counter;        // Store the message length for processing
             Input.char_counter = 0;            // Reset the counter for the next line

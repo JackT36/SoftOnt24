@@ -33,6 +33,7 @@
 /******************************************************************************
 *   #defines                                                                  *
 ******************************************************************************/
+#define LOGS(format, ...)        LOG_(LOG_NONE,    LOG_COLOR_H,      FILENAME_, __LINE__, S, format, ##__VA_ARGS__)     // @brief System info
 //#define NO_ASYNC_LOGGING
 
 #ifdef NO_ASYNC_LOGGING
@@ -94,6 +95,7 @@ static int Log(const char* logMessageFormat, va_list logMessageArguments);
 ******************************************************************************/
 __inline void LOG_SetLogLevel(LogLevel_e logLevel)
 {
+	LOGS("Log level changes: %d", logLevel);
 	CurrentLogLevel = logLevel;
 }
 
