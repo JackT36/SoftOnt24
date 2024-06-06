@@ -454,21 +454,21 @@ void DrawLine(int x1, int x2, int y1, int y2, int color)
     }
 }
 
-void draw_char(int x, int y, const uint8_t *bitmap, int width, int height, int color)
+void DrawChar(int x, int y, const uint8_t *bitmap, int width, int height, int color)
 {
-    int pixels_per_byte = 8 / 2; // 4 pixels per byte for 2bpp
-    int bytes_per_row = (width + pixels_per_byte - 1) / pixels_per_byte; // Number of bytes per row, rounded up
+    int pixelsPerByte = 8 / 2; // 4 pixels per byte for 2bpp
+    int bytesPerRow = (width + pixelsPerByte - 1) / pixelsPerByte; // Number of bytes per row, rounded up
 
     for (int j = 0; j < height; j++)
     {
         for (int i = 0; i < width; i++)
         {
-            int byte_index = j * bytes_per_row + i / pixels_per_byte; // Find the right byte for this pixel
-            int bit_index = (i % pixels_per_byte) * 2; // bit index within the byte (0 is most significant set of 2 bits)
-            uint8_t pixel_data = bitmap[byte_index];
-            uint8_t pixel = (pixel_data >> (6 - bit_index)) & 0x3; //Get the specific 2 bits
+            int byteIndex = j * bytesPerRow + i / pixelsPerByte; // Find the right byte for this pixel
+            int bitIndex = (i % pixelsPerByte) * 2; // bit index within the byte (0 is most significant set of 2 bits)
+            uint8_t pixelData = bitmap[byteIndex];
+            uint8_t pixel = (pixelData>>(6 - bitIndex)) & 0x3; //Get the specific 2 bits
 
-            int pixel_color;
+            int pixelColor;
             if (pixel == 0)
             {
                 // Do nothing, skip drawing the pixel for transparency
@@ -476,10 +476,10 @@ void draw_char(int x, int y, const uint8_t *bitmap, int width, int height, int c
             }
             else
             {
-                pixel_color = color;
+                pixelColor = color;
             }
 
-            VGA_SetPixel(x + i, y + j, pixel_color);
+            VGA_SetPixel(x + i, y + j, pixelColor);
         }
     }
 }
@@ -500,7 +500,7 @@ void DrawText (int xt, int yt, int color, const char *text, const Font_s *glyphs
             cursor_x = xt; // Reset X to startposition
             yt += char_height; // Move Y to the next line
 		}
-    	draw_char(cursor_x, yt, bitmap, glyph->w_px, char_height, color); // Width per character
+        DrawChar(cursor_x, yt, bitmap, glyph->w_px, char_height, color); // Width per character
     	cursor_x += glyph->w_px; // Move cursor horizontally
     }
 }
