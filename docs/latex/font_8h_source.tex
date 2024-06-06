@@ -1,5 +1,5 @@
 \doxysection{font.\+h}
-\hypertarget{font_8h_source}{}\label{font_8h_source}\index{ub\_lib/font.h@{ub\_lib/font.h}}
+\hypertarget{font_8h_source}{}\label{font_8h_source}\index{swont\_ide/Core/ub\_lib/font.h@{swont\_ide/Core/ub\_lib/font.h}}
 \mbox{\hyperlink{font_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FONT\_H}}
@@ -8,34 +8,87 @@
 \DoxyCodeLine{00004\ \textcolor{comment}{*\ \ \ Includes\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
 \DoxyCodeLine{00005\ \textcolor{comment}{******************************************************************************/}}
 \DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
-\DoxyCodeLine{00007\ \textcolor{comment}{/******************************************************************************}}
-\DoxyCodeLine{00008\ \textcolor{comment}{*\ \ \ \#defines\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
-\DoxyCodeLine{00009\ \textcolor{comment}{******************************************************************************/}}
-\DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{comment}{/******************************************************************************}}
-\DoxyCodeLine{00012\ \textcolor{comment}{*\ \ \ Typedefs\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
-\DoxyCodeLine{00013\ \textcolor{comment}{******************************************************************************/}}
-\DoxyCodeLine{00014\ \textcolor{comment}{//typedef\ struct\ \{}}
-\DoxyCodeLine{00015\ \textcolor{comment}{//\ \ \ \ uint16\_t\ heightFont;}}
-\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ \ uint16\_t\ widthFont;}}
-\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ uint8\_t\ fontArray[][][42];}}
-\DoxyCodeLine{00018\ \textcolor{comment}{//\}\ font\_s;}}
-\DoxyCodeLine{00019\ \textcolor{comment}{//}}
-\DoxyCodeLine{00020\ \textcolor{comment}{//}}
-\DoxyCodeLine{00021\ \textcolor{comment}{//typedef\ struct\ \{}}
-\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ \ \ font\_s\ normal[2];}}
-\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ \ font\_s\ italic[2];}}
-\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ font\_s\ bold[2];}}
-\DoxyCodeLine{00025\ \textcolor{comment}{//\}\ font\_complete\_s;}}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{comment}{/******************************************************************************}}
-\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ Globals\ vars\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
-\DoxyCodeLine{00029\ \textcolor{comment}{******************************************************************************/}}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{comment}{/******************************************************************************}}
-\DoxyCodeLine{00032\ \textcolor{comment}{*\ \ \ Global\ function\ prototypes\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
-\DoxyCodeLine{00033\ \textcolor{comment}{******************************************************************************/}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FONT\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00008\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ \ \ \#defines\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ Arial\_1\_Cursive\_12px}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ Arial\_2\_Cursive\_18px}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ Arial\_1\_Normal\_12px}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ Arial\_2\_Normal\_18px}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ Arial\_1\_Bold\_12px}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ Arial\_2\_Bold\_18px}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ Consolas\_1\_Cursive\_12px}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ Consolas\_2\_Cursive\_18px}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ Consolas\_1\_Normal\_12px}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ Consolas\_2\_Normal\_18px}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ Consolas\_1\_Bold\_12px}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ Consolas\_2\_Bold\_18px}}
+\DoxyCodeLine{00023\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ \ \ Typedefs\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{struct_font__s_a39ebe79f7ec11e3c3ebe068713ff3da4}{w\_px}};\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Width\ of\ the\ character\ in\ pixel}}
+\DoxyCodeLine{00029\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{struct_font__s_aa4c3339d81dc2c4744c253b394a496a6}{h\_px}};\ \ \ \ \ \ \ \textcolor{comment}{//\ Height\ of\ the\ character\ in\ pixel}}
+\DoxyCodeLine{00030\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{struct_font__s_ab0cb166dfaed606202a2ea0752b6ef2e}{glyph\_index}};\ \textcolor{comment}{//\ Index\ of\ the\ character\ in\ a\ bitmap\ array}}
+\DoxyCodeLine{00031\ \}\ \mbox{\hyperlink{struct_font__s}{Font\_s}};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00034\ \textcolor{comment}{*\ \ \ Globals\ vars\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00035\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifdef\ Arial\_1\_Cursive\_12px}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_abc35b877ba5c5dce904277e5eedc133d}{Arial\_1\_Cursive\_dsc}}[];}
+\DoxyCodeLine{00038\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_a1a37fefa28d4c825e7a5398b55b49861}{Arial\_1\_Cursive}}[];}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifdef\ Arial\_2\_Cursive\_18px}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a851444baaa9404435cebef1100fce97a}{Arial\_2\_Cursive\_dsc}}[];}
+\DoxyCodeLine{00042\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_ae6b63c85ded5d4a19d46b501a6e9786a}{Arial\_2\_Cursive}}[];}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifdef\ Arial\_1\_Normal\_12px}}
+\DoxyCodeLine{00045\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a10f52f37cff0bd1ce9f7f751e33edb7e}{Arial\_1\_Normal\_dsc}}[];}
+\DoxyCodeLine{00046\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_af5088d15316f4bb424166d4dcaa0c315}{Arial\_1\_Normal}}[];}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#ifdef\ Arial\_2\_Normal\_18px}}
+\DoxyCodeLine{00049\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a10c1234dbe2b6250c6e6745fe97a233e}{Arial\_2\_Normal\_dsc}}[];}
+\DoxyCodeLine{00050\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_a52e434ad4f4df3157edd790f63ef728e}{Arial\_2\_Normal}}[];}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ Arial\_1\_Bold\_12px}}
+\DoxyCodeLine{00053\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a3e2a1bf8c5a0c1becce92b1aca0bb19c}{Arial\_1\_Bold\_dsc}}[];}
+\DoxyCodeLine{00054\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_ae23d23a764eed22e780690902c67f692}{Arial\_1\_Bold}}[];}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#ifdef\ Arial\_2\_Bold\_18px}}
+\DoxyCodeLine{00057\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a5d64a1f1af96b7474217d540c39f375f}{Arial\_2\_Bold\_dsc}}[];}
+\DoxyCodeLine{00058\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_a7d10a4c9c937e72e52e3ccdcc358dde4}{Arial\_2\_Bold}}[];}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifdef\ Consolas\_1\_Cursive\_12px}}
+\DoxyCodeLine{00061\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a578f090c987bd988320e8f8b854dbfd0}{Consolas\_1\_Cursive\_dsc}}[];}
+\DoxyCodeLine{00062\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_a20ed2eaa1faad13e391e25dc190d62ab}{Consolas\_1\_Cursive}}[];}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifdef\ Consolas\_2\_Cursive\_18px}}
+\DoxyCodeLine{00065\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a3c09a6c83b2dc716479f81fead20e501}{Consolas\_2\_Cursive\_dsc}}[];}
+\DoxyCodeLine{00066\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_a181cb35e6f3d84c7bdb3134484caef13}{Consolas\_2\_Cursive}}[];}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#ifdef\ Consolas\_1\_Normal\_12px}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a754f0770bd6457b83922fb0bb3471662}{Consolas\_1\_Normal\_dsc}}[];}
+\DoxyCodeLine{00070\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_a049b0dae177e1c7a651ebb8c8276367b}{Consolas\_1\_Normal}}[];}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#ifdef\ Consolas\_2\_Normal\_18px}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a5e09a35873933f9f8e83ec0c059cb254}{Consolas\_2\_Normal\_dsc}}[];}
+\DoxyCodeLine{00074\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_a033465b5c84a27c3f323687fbe483b55}{Consolas\_2\_Normal}}[];}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#ifdef\ Consolas\_1\_Bold\_12px}}
+\DoxyCodeLine{00077\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a2f91c26fa3817b1b89515029c27f7dd5}{Consolas\_1\_Bold\_dsc}}[];}
+\DoxyCodeLine{00078\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_a9db52c661425ec73aceb36bda6b28d70}{Consolas\_1\_Bold}}[];}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#ifdef\ Consolas\_2\_Bold\_18px}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_font__s}{Font\_s}}\ \mbox{\hyperlink{font_8h_a481b5cee2fa6d3dd0f068904a6445cf7}{Consolas\_2\_Bold\_dsc}}[];}
+\DoxyCodeLine{00082\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ \mbox{\hyperlink{font_8h_a2440f1a704ee701adc3921ef1a32aeb3}{Consolas\_2\_Bold}}[];}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00084\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00085\ \textcolor{comment}{*\ \ \ Global\ function\ prototypes\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00086\ \textcolor{comment}{******************************************************************************/}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FONT\_H}}
 
 \end{DoxyCode}

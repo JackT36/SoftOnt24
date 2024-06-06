@@ -1,9 +1,9 @@
 \doxysection{vga\+\_\+io\+\_\+driver.\+h}
-\hypertarget{vga__io__driver_8h_source}{}\label{vga__io__driver_8h_source}\index{ub\_lib/vga\_io\_driver.h@{ub\_lib/vga\_io\_driver.h}}
+\hypertarget{vga__io__driver_8h_source}{}\label{vga__io__driver_8h_source}\index{swont\_ide/Core/ub\_lib/vga\_io\_driver.h@{swont\_ide/Core/ub\_lib/vga\_io\_driver.h}}
 \mbox{\hyperlink{vga__io__driver_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00002\ \textcolor{comment}{//\ File\ \ \ \ \ :\ stm32\_ub\_vga\_screen.h}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ File\ \ \ \ \ :\ VGA\_io\_driver.h}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
 \DoxyCodeLine{00004\ }
 \DoxyCodeLine{00005\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
@@ -47,10 +47,10 @@
 \DoxyCodeLine{00043\ \textcolor{comment}{//\ Function\ \ =\ Pixelclock\ (Speed\ for\ \ DMA\ Transfer)}}
 \DoxyCodeLine{00044\ \textcolor{comment}{//}}
 \DoxyCodeLine{00045\ \textcolor{comment}{//\ basefreq\ =\ 2*APB2\ (APB2=84MHz)\ =>\ TIM\_CLK=168MHz}}
-\DoxyCodeLine{00046\ \textcolor{comment}{//\ Frq\ \ \ \ \ \ \ =\ 168MHz/1/12\ =\ 14MHz}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ Frq\ \ \ \ \ \ \ =\ 168MHz/1/11\ =\ 15.27MHz}}
 \DoxyCodeLine{00047\ \textcolor{comment}{//}}
 \DoxyCodeLine{00048\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ VGA\_TIM1\_PERIODE\ \ \ \ \ \ 10\ \ \ \ \ \ \ \ }\textcolor{comment}{//almost\ centred}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ VGA\_TIM1\_PERIODE\ \ \ \ \ \ 10\ \ \ \ \ \ \ \ }\textcolor{comment}{//10\ almost\ centred}}
 \DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ VGA\_TIM1\_PRESCALE\ \ \ \ \ \ 0}}
 \DoxyCodeLine{00051\ }
 \DoxyCodeLine{00052\ }
