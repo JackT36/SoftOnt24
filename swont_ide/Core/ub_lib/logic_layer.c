@@ -229,30 +229,30 @@ void LL_Execute(void)
                 atoi(ParsedData[12]));
         break;
     case CMD_CIRCLE:
-    	colorType = GetColorType(ParsedData[11]);
+    	colorType = GetColorType(ParsedData[4]);
     	SANITIZE_COLOR(colorType);
     	API_draw_circle(atoi(ParsedData[1]),
                 		atoi(ParsedData[2]),
 						atoi(ParsedData[3]),
 						colorType,
 						atoi(ParsedData[5]));
+    	break;
 
     case CMD_DEBUG:
-//        int32_t logLvel = atoi((ParsedData[1]));
-//        if(logLevel >= LOG_NONE && logLevel <= LOG_VERBOSE)
-//        {
-//            LOG_SetLogLevel(logLevel);
-//            LOGI("Log level changes: %d", logLevel);
-//        }
-//        else
-//            LOGE("Log level not supported");
+        int32_t logLevel = atoi((ParsedData[1]));
+        if(logLevel >= LOG_NONE && logLevel <= LOG_VERBOSE)
+        {
+            LOG_SetLogLevel((LogLevel_e)logLevel);
+        }
+        else
+            LOGE("Log level not supported");
         break;
 
     case CMD_UNKNOWN:
         /* Fall through */
     default:
         // Foutafhandeling voor onbekende commando's
-        LOGW("Onbekend commando: %s\n", ParsedData[0]);
+        LOGW("Onbekend commando: %s", ParsedData[0]);
         break;
     }
 }
