@@ -260,8 +260,7 @@ int API_draw_rectangle(int x, int y, int width, int height, int color,
  */
 int API_draw_bitmap(int x_lup, int y_lup, int bm_nr)
 {
-    size_t bitmapCount;
-    if(bm_nr < 0 || bm_nr >= (bitmapCount = getBitmapCount()))
+    if(bm_nr < 0 || bm_nr >= 7)
     {
         LOGE("Invalid bitmap number");
         return -1;
