@@ -51,6 +51,7 @@ typedef enum
 	CMD_BITMAP,       /// Commando om een bitmap te tonen.
 	CMD_CLEAR_SCREEN, /// Commando om het scherm te wissen.
 	CMD_FIGURE,	      /// Commando voor figuur te tekenen
+	CMD_CIRCLE,			/// Commando voor cirkel tekenen
 	CMD_DEBUG,        /// Commando om het log level aan te passen
 	CMD_UNKNOWN       /// Onbekend commando.
 } CommandType;

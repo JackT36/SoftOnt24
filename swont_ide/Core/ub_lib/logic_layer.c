@@ -54,6 +54,8 @@ CommandType GetCommandType(const char* command)
         return CMD_CLEAR_SCREEN;
     if(strncmp(command, "figuur", strlen("figuur")) == 0)
         return CMD_FIGURE;
+    if(strncmp(command, "cirkel", strlen("cirkel")) == 0)
+        return CMD_CIRCLE;
     return CMD_UNKNOWN;
 }
 
@@ -226,6 +228,14 @@ void LL_Execute(void)
                 colorType,
                 atoi(ParsedData[12]));
         break;
+    case CMD_CIRCLE:
+    	colorType = GetColorType(ParsedData[11]);
+    	SANITIZE_COLOR(colorType);
+    	API_draw_circle(atoi(ParsedData[1]),
+                		atoi(ParsedData[2]),
+						atoi(ParsedData[3]),
+						colorType,
+						atoi(ParsedData[5]));
 
     case CMD_DEBUG:
 //        int32_t logLvel = atoi((ParsedData[1]));
