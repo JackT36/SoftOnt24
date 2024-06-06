@@ -77,11 +77,6 @@ int API_draw_text(int x_lup, int y_lup, int color, char* text, char* fontname,
     }
     if((fontstyle != 0) && (fontstyle != 1) && (fontstyle != 2))
     {
-	LOGE("Fontsize too big");
-	return -1;
-    }
-    if((fontstyle != 0) && (fontstyle != 1) && (fontstyle != 2))
-    {
         LOGE("Font style not supported");
         return -1;
     }
